@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WL-Datamining | Home - Van Gogh Theme</title>
+  <meta name="description" content="WL-Datamining - Khai phá dữ liệu với phong cách nghệ thuật Van Gogh. 4 Blogs PDF và Labs Summary về Data Mining." />
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/home.css" />
+</head>
+
+<body>
+  <!-- Background Stage -->
+  <div class="bg-stage bg-video-stage" aria-hidden="true">
+    <video class="bg-video bg-video-a is-on" autoplay muted loop playsinline preload="auto" poster="images/poster-1.jpg">
+      <source src="images/vgvd.mp4" type="video/mp4" />
+    </video>
+
+    <video class="bg-video bg-video-b" autoplay muted loop playsinline preload="auto" poster="images/poster-2.jpg">
+      <source src="images/vgvd2.mp4" type="video/mp4" />
+    </video>
+
+    <div class="bg-vignette"></div>
+    <div class="bg-grain"></div>
+  </div>
+
+  <!-- Page Transition -->
+  <div class="page-transition" id="pageTransition" aria-hidden="true">
+    <div class="pt__blob"></div>
+    <div class="pt__text">
+      <div class="pt__brand">WL-Datamining</div>
+      <div class="pt__hint">Loading Van Gogh vibe…</div>
+    </div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="nav__brand" href="index.html" aria-label="WL-Datamining Home">
+        <div class="nav__logo">
+          <img src="images/logo-wl.png" alt="WL Logo" />
+        </div>
+        <div class="nav__title">
+          <b>WL-Datamining</b>
+          <small>Blogs PDF • Labs Summary</small>
+        </div>
+      </a>
+
+      <nav class="nav__links" aria-label="Main navigation">
+        <a class="nav__link is-active" href="index.html">Trang chủ</a>
+        <a class="nav__link nav__lab" href="lab1.html">Lab 1</a>
+        <a class="nav__link nav__lab" href="lab2.html">Lab 2</a>
+        <a class="nav__link nav__lab" href="lab3.html">Lab 3</a>
+        <a class="nav__link nav__lab" href="lab4.html">Lab 4</a>
+      </nav>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
+
+    <div class="nav__mobile" id="navMobile" hidden>
+      <a class="nav__m-link is-active" href="index.html">Trang chủ</a>
+      <a class="nav__m-link" href="lab1.html">Lab 1</a>
+      <a class="nav__m-link" href="lab2.html">Lab 2</a>
+      <a class="nav__m-link" href="lab3.html">Lab 3</a>
+      <a class="nav__m-link" href="lab4.html">Lab 4</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero reveal" data-v="1">
+    <div class="hero__particles" id="heroParticles" aria-hidden="true"></div>
+    
+    <div class="hero__content">
+      <div class="container hero__center">
+        <div class="hero__badge">
+          <span class="hero__badge-dot" aria-hidden="true"></span>
+          <span>WL-Datamining • Four Power Rangers</span>
+        </div>
+
+        <!-- ✅ FIX LỖI 1: Simplified title structure -->
+        <h1 class="hero__title">
+          <span class="t1">Data Mining</span>
+          <span class="t2">Blog & Lab</span>
+          <span class="t3">Product</span>
+        </h1>
+
+        <p class="hero__desc hero__desc--enhanced">
+          <b>WL-Datamining</b> đại diện cho tinh thần khai phá dữ liệu –
+          nơi nhóm biến những con số khô khan thành <span class="highlight">tri thức có giá trị</span>, phục vụ phân tích,
+          học tập và trình bày khoa học một cách trực quan, hiệu quả.
+        </p>
+
+        <div class="hero__actions">
+          <a class="btn btn--primary btn--premium" href="#blogs">
+            <span class="btn__glow" aria-hidden="true"></span>
+            <span class="btn__icon">
+              <i class="bi bi-journal-richtext"></i>
+            </span>
+            <span class="btn__text">Khám phá 4 Blog</span>
+            <span class="btn__shine" aria-hidden="true"></span>
+          </a>
+
+          <button class="btn btn--ghost btn--premium" id="openSlidesBtn" type="button">
+            <span class="btn__glow" aria-hidden="true"></span>
+            <span class="btn__icon" style="color: white;">
+              <i class="bi bi-easel-fill"></i>
+            </span>
+            <span class="btn__text" style="color: white;">Xem Slides</span>
+          </button>
+        </div>
+
+        <div class="hero__stats hero__stats--floating">
+          <div class="stat stat--float" data-tilt>
+            <div class="stat__bg" aria-hidden="true"></div>
+            <div class="stat__icon" aria-hidden="true">
+              <i class="bi bi-people-fill"></i>
+            </div>
+            <div class="stat__num counter" data-target="4">0</div>
+            <div class="stat__label">Thành viên</div>
+          </div>
+          
+          <div class="stat stat--float" data-tilt data-delay="100">
+            <div class="stat__bg" aria-hidden="true"></div>
+            <div class="stat__icon" aria-hidden="true">
+              <i class="bi bi-file-earmark-pdf-fill"></i>
+            </div>
+            <div class="stat__num counter" data-target="4">0</div>
+            <div class="stat__label">Blogs (PDF)</div>
+          </div>
+          
+          <div class="stat stat--float" data-tilt data-delay="200">
+            <div class="stat__bg" aria-hidden="true"></div>
+            <div class="stat__icon" aria-hidden="true">
+              <i class="bi bi-code-square"></i>
+            </div>
+            <div class="stat__num counter" data-target="4">0</div>
+            <div class="stat__label">Labs (Summary)</div>
+          </div>
+          
+          <div class="stat stat--float" data-tilt data-delay="300">
+            <div class="stat__bg" aria-hidden="true"></div>
+            <div class="stat__icon" aria-hidden="true">
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="stat__num counter" data-target="12">0</div>
+            <div class="stat__label">Highlights</div>
+          </div>
+        </div>
+
+        <div class="hero__hint">
+          <span class="chip chip--cold">
+            <i class="bi bi-palette-fill"></i>
+            <span>Van Gogh Theme</span>
+          </span>
+          <span class="chip chip--hot">
+            <i class="bi bi-star-fill"></i>
+            <span>Gold Accent</span>
+          </span>
+          <span class="chip chip--cold">
+            <i class="bi bi-droplet-fill"></i>
+            <span>Cold Blue Glass</span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__fade" aria-hidden="true"></div>
+  </section>
+
+  <main class="main">
+    <!-- Blogs Section -->
+    <section class="section section--blogs reveal" id="blogs" data-v="2">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="section__title">4 Blogs <span class="grad">(PDF)</span></h2>
+          <p class="section__desc">
+            Click từng blog để mở PDF đọc trực tiếp (modal). Khám phá phân tích dữ liệu chuyên sâu.
+          </p>
+        </div>
+
+        <div class="blog-grid">
+          <article class="blog-card" data-pdf="pdf/blog1.pdf" data-name="Blog 1 - Product Hub"
+            data-repo="https://github.com/VINH1811/shopping_cart_analysis">
+            <div class="blog-card__top">
+              <span class="blog-card__tag">Blog 01</span>
+              <div class="blog-card__ico" aria-hidden="true">📄</div>
+            </div>
+            <h3 class="blog-card__title">Tuần 1 - Product Hub</h3>
+            <p class="blog-card__desc">Tìm sản phẩm trung tâm để tối ưu chiến lược cross-selling trong siêu thị.</p>
+            <div class="blog-card__meta">
+              <span class="pill">PDF</span>
+              <span class="pill">Data</span>
+              <span class="pill">Charts</span>
+            </div>
+          </article>
+
+          <article class="blog-card" data-pdf="pdf/blog2.pdf" data-name="Blog 2 - High-Utility Mining"
+            data-repo="https://github.com/VINH1811/shopping_cart_advanced_analysis">
+            <div class="blog-card__top">
+              <span class="blog-card__tag">Blog 02</span>
+              <div class="blog-card__ico" aria-hidden="true">📄</div>
+            </div>
+            <h3 class="blog-card__title">Tuần 2 - Market Basket</h3>
+            <p class="blog-card__desc">Frequent vs. High-Utility: Cuộc chiến giữa "Số Lượng" và "Chất Lượng".</p>
+            <div class="blog-card__meta">
+              <span class="pill">PDF</span>
+              <span class="pill">EDA</span>
+              <span class="pill">Insights</span>
+            </div>
+          </article>
+
+          <article class="blog-card" data-pdf="pdf/blog3.pdf" data-name="Blog 3 - Air Quality Prediction"
+            data-repo="https://github.com/VINH1811/air_quality_timeseries-lab4">
+            <div class="blog-card__top">
+              <span class="blog-card__tag">Blog 03</span>
+              <div class="blog-card__ico" aria-hidden="true">📄</div>
+            </div>
+            <h3 class="blog-card__title">Tuần 3 - Time Series</h3>
+            <p class="blog-card__desc">Dự Báo Bụi Mịn PM2.5 (Beijing Air Quality).</p>
+            <div class="blog-card__meta">
+              <span class="pill">PDF</span>
+              <span class="pill">Model</span>
+              <span class="pill">Metrics</span>
+            </div>
+          </article>
+
+          <article class="blog-card" data-pdf="pdf/blog4.pdf" data-name="Blog 4 - Conclusion"
+            data-repo="https://github.com/VINH1811">
+            <div class="blog-card__top">
+              <span class="blog-card__tag">Blog 04</span>
+              <div class="blog-card__ico" aria-hidden="true">📄</div>
+            </div>
+            <h3 class="blog-card__title">Tuần 4 - Tổng Kết</h3>
+            <p class="blog-card__desc">Kết luận, hạn chế và hướng phát triển.</p>
+            <div class="blog-card__meta">
+              <span class="pill">PDF</span>
+              <span class="pill">Conclusion</span>
+              <span class="pill">Next</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slides Section -->
+    <section id="slides" class="section reveal" data-v="1">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="section__title">Slides <span class="grad">(Presentation)</span></h2>
+          <p class="section__desc">4 file slides tổng hợp (PDF) để thuyết trình. Click để mở.</p>
+        </div>
+
+        <div class="slides-list">
+          <div class="slide-row" data-pdf="pdf/slides-01.pdf" data-title="Slides tuần 1">
+            <div class="slide-row__left">
+              <div class="slide-row__icon bi bi-file-earmark-text" style="color:#9FD7F9;" aria-hidden="true"></div>
+              <div>
+                <div class="slide-row__title">Slides tuần 1</div>
+                <div class="slide-row__sub">PDF • Overview</div>
+              </div>
+            </div>
+            <div class="slide-row__cta">Mở →</div>
+          </div>
+
+          <div class="slide-row" data-pdf="pdf/slides-02.pdf" data-title="Slides tuần 2">
+            <div class="slide-row__left">
+              <div class="slide-row__icon bi bi-bar-chart-line-fill" style="color:#6FC2F7;" aria-hidden="true"></div>
+              <div>
+                <div class="slide-row__title">Slides tuần 2</div>
+                <div class="slide-row__sub">PDF • Visualization</div>
+              </div>
+            </div>
+            <div class="slide-row__cta">Mở →</div>
+          </div>
+
+          <div class="slide-row" data-pdf="pdf/slides-03.pdf" data-title="Slides tuần 3">
+            <div class="slide-row__left">
+              <div class="slide-row__icon bi bi-cpu-fill" style="color:#F2C14E;" aria-hidden="true"></div>
+              <div>
+                <div class="slide-row__title">Slides tuần 3</div>
+                <div class="slide-row__sub">PDF • Model & Metrics</div>
+              </div>
+            </div>
+            <div class="slide-row__cta">Mở →</div>
+          </div>
+
+          <div class="slide-row" data-pdf="pdf/slides-04.pdf" data-title="Slides tuần 4">
+            <div class="slide-row__left">
+              <div class="slide-row__icon bi bi-check-circle-fill" style="color:#7AE582;" aria-hidden="true"></div>
+              <div>
+                <div class="slide-row__title">Slides tuần 4</div>
+                <div class="slide-row__sub">PDF • Conclusion</div>
+              </div>
+            </div>
+            <div class="slide-row__cta">Mở →</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Members Section -->
+    <footer class="footer footer--simple reveal" id="footerMembers" data-v="2">
+      <div class="container">
+        <div class="footer__head">
+          <h2 class="footer__title">Thành viên nhóm</h2>
+          <p class="footer__sub">WL-Datamining • Data Mining Project</p>
+        </div>
+
+        <div class="members members--big">
+          <div class="member member--big">
+            <img class="member__img" src="images/vinh.jpg" alt="Nguyễn Văn Vinh - Leader">
+            <div class="member__meta">
+              <div class="member__name">Nguyễn Văn Vinh</div>
+              <div class="member__role">Leader • Data & Report</div>
+              <div class="member__sub">Email: vinhroy1811@gmail.com</div>
+            </div>
+          </div>
+
+          <div class="member member--big">
+            <img class="member__img" src="images/vinhdo.jpg" alt="Đỗ Văn Vinh - EDA Specialist">
+            <div class="member__meta">
+              <div class="member__name">Đỗ Văn Vinh</div>
+              <div class="member__role">EDA • Visualization</div>
+              <div class="member__sub">Email: aevinh77@gmail.com</div>
+            </div>
+          </div>
+
+          <div class="member member--big">
+            <img class="member__img" src="images/luong.png" alt="Bạch Ngọc Lương - Modeling Expert">
+            <div class="member__meta">
+              <div class="member__name">Bạch Ngọc Lương</div>
+              <div class="member__role">Modeling • Evaluation</div>
+              <div class="member__sub">Email: bachngocluong2005@gmail.com</div>
+            </div>
+          </div>
+
+          <div class="member member--big">
+            <img class="member__img" src="images\doan.png" alt="Lại Thành Đoàn - Presenter">
+            <div class="member__meta">
+              <div class="member__name">Lại Thành Đoàn</div>
+              <div class="member__role">Slides • Presenter</div>
+              <div class="member__sub">Email: laithanhdoan2005@gmail.com</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer__bottom">
+          <span>© <span id="year">2026</span> WL-Datamining • Van Gogh Theme</span>
+          <button class="to-top" id="toTop" type="button" aria-label="Back to top">
+            <i class="bi bi-arrow-up"></i>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- PDF Modal -->
+  <div class="modal" id="pdfModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" data-close="1" aria-label="Close modal"></div>
+
+    <div class="modal__panel">
+      <div class="modal__bar">
+        <div class="modal__title">
+          <span class="modal__dot" aria-hidden="true"></span>
+          <span id="pdfTitle" class="modal__name">PDF Viewer</span>
+        </div>
+
+        <div class="modal__actions">
+          <a class="icon-btn" id="pdfOpenNew" href="#" target="_blank" rel="noopener">
+            <i class="bi bi-box-arrow-up-right"></i>
+            <span>Mở tab mới</span>
+          </a>
+          <a class="icon-btn" id="repoOpen" href="#" target="_blank" rel="noopener" style="display:none;">
+            <i class="bi bi-github"></i>
+            <span>Mở repo</span>
+          </a>
+          <button class="icon-btn icon-btn--danger" id="pdfClose" type="button">
+            <i class="bi bi-x-lg"></i>
+            <span>Đóng</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="modal__body">
+        <div class="pdf-loading" id="pdfLoading" aria-live="polite">
+          <div class="spinner"></div>
+          <p>Đang tải PDF...</p>
+        </div>
+        <iframe id="pdfFrame" title="PDF Preview" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/home.js"></script>
+  
+</body>
+</html>

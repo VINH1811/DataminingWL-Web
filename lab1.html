@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="vi" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Lab 1: Product Hub – The Starry Data | WL-Datamining</title>
+    <meta name="description" content="Khám phá thuật toán Apriori và Product Hub qua phong cách nghệ thuật Van Gogh - Starry Night theme.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@200;300;400;500;600;700;800;900&family=Pinyon+Script&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/lab1.css" />
+    
+    <script>document.documentElement.className="js";</script>
+</head>
+
+<body class="loading">
+
+    <!-- SVG Filters -->
+    <svg style="display: none;">
+        <defs>
+            <filter id="noiseFilter">
+                <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/>
+                <feColorMatrix type="saturate" values="0"/>
+            </filter>
+            <filter id="distortionFilter">
+                <feTurbulence type="fractalNoise" baseFrequency="0.01 0.005" numOctaves="5" seed="2">
+                    <animate attributeName="baseFrequency" dur="20s" values="0.01 0.005;0.02 0.008;0.01 0.005" repeatCount="indefinite"/>
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" scale="10"/>
+            </filter>
+            <filter id="paperTexture">
+                <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise"/>
+                <feDiffuseLighting in="noise" lighting-color="#fff" surfaceScale="2">
+                    <feDistantLight azimuth="45" elevation="60"/>
+                </feDiffuseLighting>
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader__bg"></div>
+        <div class="loader__content">
+            <div class="loader__stars">
+                <div class="loader__star"></div>
+                <div class="loader__star"></div>
+                <div class="loader__star"></div>
+            </div>
+            <div class="loader__title font-art">The Starry Data</div>
+            <div class="loader__subtitle">Loading Lab 1...</div>
+            <div class="loader__counter font-cinzel" id="loaderCounter">0%</div>
+        </div>
+    </div>
+
+    <!-- Background Stage -->
+    <div class="bg-stage">
+        <canvas id="starryCanvas"></canvas>
+        <div class="bg-a bg-layer" data-bg="images/starry-bg.jpg"></div>
+        <div class="bg-b bg-layer"></div>
+        <div class="bg-vignette"></div>
+        <div class="bg-grain"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Header -->
+    <header class="nav">
+        <div class="container nav__inner">
+            <a class="nav__brand" href="index.html">
+                <div class="nav__logo">
+                    <img src="images/logo-wl.png" alt="WL Logo" />
+                </div>
+                <div class="nav__title">
+                    <b>WL-Datamining</b>
+                    <small>Lab 1 • Product Hub</small>
+                </div>
+            </a>
+
+            <nav class="nav__links" aria-label="Main">
+                <a class="nav__link" href="index.html">Trang chủ</a>
+                <a class="nav__link is-active" href="lab1.html">Lab 1</a>
+                <a class="nav__link" href="lab2.html">Lab 2</a>
+                <a class="nav__link" href="lab3.html">Lab 3</a>
+                <a class="nav__link" href="lab4.html">Lab 4</a>
+            </nav>
+
+            <button class="nav__toggle" id="navToggle" aria-label="Open menu">☰</button>
+        </div>
+
+        <div class="nav__mobile" id="navMobile" hidden>
+            <a class="nav__m-link" href="index.html">Trang chủ</a>
+            <a class="nav__m-link is-active" href="lab1.html">Lab 1</a>
+            <a class="nav__m-link" href="lab2.html">Lab 2</a>
+            <a class="nav__m-link" href="lab3.html">Lab 3</a>
+            <a class="nav__m-link" href="lab4.html">Lab 4</a>
+        </div>
+    </header>
+
+    <!-- Rope Navigation -->
+    <div class="rope">
+        <div class="rope__line"></div>
+        <div class="rope__dots" id="ropeDots"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <!-- ========== HERO ========== -->
+        <section class="hero panel reveal" data-index="0" data-bg="images/starry-hero.jpg">
+            <div class="container">
+                <div class="hero__grid">
+                    <div class="hero__content" data-speed="0.9">
+                        <div class="hero__badge">
+                            <span class="hero__badge-dot"></span>
+                            <span>Lab 1 • Nhóm 3 • CNTT17-13</span>
+                        </div>
+
+                        <h1 class="hero__title">
+                            <span>Product Hub</span>
+                            <span class="t2">Tìm Sản Phẩm Trung Tâm</span>
+                        </h1>
+
+                        <p class="hero__desc">
+                            Áp dụng thuật toán <b>Apriori</b> để phân tích 485,123 giao dịch mua sắm, 
+                            phát hiện ra nhóm sản phẩm <b class="text-gold">HERB MARKER</b> với mối liên kết mạnh mẽ (Lift ~70), 
+                            tối ưu chiến lược <b>cross-selling</b> trong siêu thị.
+                        </p>
+
+                        <div class="hero__actions">
+                            <button class="btn btn--primary" id="openLabPdf">
+                                <span class="btn__ico bi bi-file-earmark-pdf"></span>
+                                <span>Đọc Report (PDF)</span>
+                            </button>
+                            <a class="btn btn--ghost" href="#methodology">
+                                <span class="btn__ico bi bi-diagram-3"></span>
+                                <span>Xem Phương Pháp</span>
+                            </a>
+                        </div>
+
+                        <div class="hero__chips">
+                            <span class="chip chip--cold"><i class="bi bi-database"></i> 485K Transactions</span>
+                            <span class="chip chip--hot"><i class="bi bi-box-seam"></i> 4,007 Products</span>
+                            <span class="chip chip--cold"><i class="bi bi-lightning"></i> 1,794 Rules</span>
+                        </div>
+                    </div>
+
+                    <!-- Stats Card -->
+                    <div class="hero__card" data-speed="1.1">
+                        <div class="hero__card-top">
+                            <div class="mini-ico">
+                                <i class="bi bi-graph-up" style="font-size:22px;color:var(--c2);"></i>
+                            </div>
+                            <div>
+                                <div class="hero__card-title">Dataset Overview</div>
+                                <div class="hero__card-sub">UK Retail 2010-2011</div>
+                            </div>
+                        </div>
+
+                        <div class="hero__facts">
+                            <div class="fact">
+                                <div class="fact__num counter" data-target="485123">0</div>
+                                <div class="fact__label">Giao dịch</div>
+                            </div>
+                            <div class="fact">
+                                <div class="fact__num counter" data-target="4007">0</div>
+                                <div class="fact__label">Sản phẩm</div>
+                            </div>
+                            <div class="fact">
+                                <div class="fact__num counter" data-target="1794">0</div>
+                                <div class="fact__label">Luật</div>
+                            </div>
+                        </div>
+
+                        <div class="hero__note">
+                            Sau khi làm sạch dữ liệu (loại bỏ <code>Quantity ≤ 0</code>, <code>InvoiceNo</code> bắt đầu "C"), 
+                            chỉ giữ lại giao dịch tại United Kingdom để đảm bảo đồng nhất hành vi mua sắm.
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-indicator">
+            <span>SCROLL TO DISCOVER</span>
+            <div class="mouse"><div class="wheel"></div></div>
+        </div>
+            </div>
+            <div class="hero__fade"></div>
+            
+        </section>
+
+        <!-- ========== ALGORITHM OVERVIEW ========== -->
+        <section class="panel reveal" id="algorithm" data-index="1" data-bg="images/algorithm-bg.jpg">
+            <div class="container">
+                <div class="section-head">
+                    <h2 class="section-title">
+                        <span class="grad">Thuật Toán Apriori</span>
+                    </h2>
+                    <p class="section-desc">
+                        Được công bố bởi R. Agrawal & R. Srikant (1994), Apriori sử dụng kỹ thuật 
+                        <b>bottom-up</b> và <b>breadth-first search</b> để tìm frequent itemsets một cách hiệu quả.
+                    </p>
+                </div>
+
+                <div class="panel__grid">
+                    <!-- Image -->
+                    <div class="panel__media reveal" data-title="Core Metrics Hierarchy">
+                        <img src="images/anh1.png" alt="Support, Confidence, Lift">
+                        <div class="panel__cap">
+                            <span class="font-cinzel">Fig. 01</span>
+                            <span>Bộ Ba Chỉ Số</span>
+                        </div>
+                        <button class="js-expand icon-btn" style="position:absolute;top:12px;right:12px;">
+                            <i class="bi bi-arrows-angle-expand"></i>
+                        </button>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="panel__content reveal">
+                        <div class="panel__kicker">
+                            <span class="pill pill--gold"><i class="bi bi-star-fill"></i> Core Concept</span>
+                            <span class="pill pill--blue">Metrics</span>
+                        </div>
+
+                        <h3 class="panel__title">Bộ Ba Chỉ Số Vàng</h3>
+                        <p class="panel__text">
+                            Để thấu hiểu hành vi khách hàng, chúng ta cần ba thước đo chuẩn xác:
+                        </p>
+
+                        <div class="panel__stats">
+                            <div class="s-card">
+                                <div class="s-card__label">SUPPORT (S)</div>
+                                <div class="s-card__value" style="color:var(--c2);">Frequency</div>
+                                <div class="s-card__hint">Đo tần suất xuất hiện trong transactions</div>
+                            </div>
+                            <div class="s-card">
+                                <div class="s-card__label">CONFIDENCE (C)</div>
+                                <div class="s-card__value" style="color:var(--c3);">Probability</div>
+                                <div class="s-card__hint">Xác suất mua B khi đã mua A</div>
+                            </div>
+                            <div class="s-card" style="background:rgba(242,193,78,.10);border-color:rgba(242,193,78,.22);">
+                                <div class="s-card__label" style="color:var(--gold);">LIFT (L)</div>
+                                <div class="s-card__value" style="color:var(--gold);">Strength > 1</div>
+                                <div class="s-card__hint">Mức độ liên kết vượt trội so với ngẫu nhiên</div>
+                            </div>
+                        </div>
+
+                        <div class="panel__bullets">
+                            <div class="b">
+                                <span class="b__dot"></span>
+                                <span><b>Support cao</b> → sản phẩm phổ biến, bán chạy</span>
+                            </div>
+                            <div class="b">
+                                <span class="b__dot"></span>
+                                <span><b>Confidence cao</b> → luật tin cậy, dự báo chính xác</span>
+                            </div>
+                            <div class="b">
+                                <span class="b__dot"></span>
+                                <span><b>Lift > 1</b> → mối quan hệ thực sự, không ngẫu nhiên</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== BFS TRAVERSAL ========== -->
+        <section class="panel reveal" id="bfs" data-index="2" data-bg="images/bfs-bg.jpg">
+            <div class="container">
+                <div class="panel__grid panel__grid--flip">
+                    <div class="panel__content reveal">
+                        <div class="panel__kicker">
+                            <span class="pill pill--blue"><i class="bi bi-diagram-2"></i> Algorithm</span>
+                            <span class="pill">Level-wise</span>
+                        </div>
+
+                        <h3 class="panel__title">Breadth-First Search (BFS)</h3>
+                        <p class="panel__text">
+                            Thuật toán không chạy ngẫu nhiên như những vệt màu loang lổ của Van Gogh. 
+                            Nó quét theo từng <b>tầng (level)</b> một cách có trật tự: từ đơn lẻ (1-itemset) 
+                            đến phức tạp (k-itemset).
+                        </p>
+
+                        <div class="panel__bullets">
+                            <div class="b">
+                                <span class="b__dot"></span>
+                                <span>Bắt đầu với 1-itemset (sản phẩm đơn lẻ)</span>
+                            </div>
+                            <div class="b">
+                                <span class="b__dot"></span>
+                                <span>Chỉ giữ lại itemsets có <b>support ≥ min_support</b></span>
+                            </div>
+                            <div class="b">
+                                <span class="b__dot"></span>
+                                <span>Kết hợp chúng thành (k+1)-itemset</span>
+                            </div>
+                            <div class="b">
+                                <span class="b__dot"></span>
+                                <span>Lặp lại cho đến khi không còn itemset nào thỏa mãn</span>
+                            </div>
+                        </div>
+
+                        <p class="panel__text" style="margin-top:14px;">
+                            <em style="color:var(--gold);">"Kỹ thuật này đảm bảo không bỏ sót bất kỳ mối liên kết tiềm năng nào trong 'biển' dữ liệu."</em>
+                        </p>
+                    </div>
+
+                    <div class="panel__media reveal" data-title="BFS Traversal Strategy">
+                        <img src="images/anh2.png" alt="Level-wise Search">
+                        <div class="panel__cap">
+                            <span class="font-cinzel">Fig. 02</span>
+                            <span>Duyệt Theo Tầng</span>
+                        </div>
+                        <button class="js-expand icon-btn" style="position:absolute;top:12px;right:12px;">
+                            <i class="bi bi-arrows-angle-expand"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== PRUNING ========== -->
+        <section class="panel reveal" id="pruning" data-index="3" data-bg="images/pruning-bg.jpg">
+            <div class="container">
+                <div class="panel__grid">
+                    <div class="panel__media reveal" data-title="Pruning Strategy">
+                        <img src="images/anh3.png" alt="Pruning non-frequent itemsets">
+                        <div class="panel__cap">
+                            <span class="font-cinzel">Fig. 03</span>
+                            <span>Nghệ Thuật Cắt Tỉa</span>
+                        </div>
+                        <button class="js-expand icon-btn" style="position:absolute;top:12px;right:12px;">
+                            <i class="bi bi-arrows-angle-expand"></i>
+                        </button>
+                    </div>
+
+                    <div class="panel__content reveal">
+                        <div class="panel__kicker">
+                            <span class="pill pill--gold"><i class="bi bi-scissors"></i> Optimization</span>
+                            <span class="pill">Apriori Property</span>
+                        </div>
+
+                        <h3 class="panel__title">Nghệ Thuật Cắt Tỉa</h3>
+                        <p class="panel__text">
+                            Giống như Van Gogh tỉa bớt những chi tiết thừa để làm nổi bật chủ thể, 
+                            Apriori loại bỏ các nhánh <i>không phổ biến</i> ngay từ trứng nước.
+                        </p>
+
+                        <div class="quote-box">
+                            <div class="quote-icon"><i class="bi bi-quote"></i></div>
+                            <p class="quote-text">
+                                "Nếu một tập hợp con không đủ mạnh (support < threshold), 
+                                thì tập hợp cha của nó cũng sẽ lụi tàn."
+                            </p>
+                            <div class="quote-author">— Apriori Property</div>
+                        </div>
+
+                        <p class="panel__text">
+                            Điều này giúp giảm đáng kể không gian tìm kiếm, tránh phải kiểm tra 
+                            mọi tổ hợp có thể (exponential complexity).
+                        </p>
+
+                        <div class="panel__stats panel__stats--two">
+                            <div class="s-card">
+                                <div class="s-card__label">TRƯỚC KHI TỈA</div>
+                                <div class="s-card__value" style="color:var(--muted);">2<sup>n</sup> combinations</div>
+                                <div class="s-card__hint">Exponential growth</div>
+                            </div>
+                            <div class="s-card" style="background:rgba(242,193,78,.10);border-color:rgba(242,193,78,.22);">
+                                <div class="s-card__label" style="color:var(--gold);">SAU KHI TỈA</div>
+                                <div class="s-card__value" style="color:var(--gold);">Tractable</div>
+                                <div class="s-card__hint">Polynomial reduction</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== WORKFLOW ========== -->
+        <section class="panel reveal" id="methodology" data-index="4" data-bg="images/workflow-bg.jpg">
+            <div class="container">
+                <div class="panel__grid panel__grid--flip">
+                    <div class="panel__content reveal">
+                        <div class="panel__kicker">
+                            <span class="pill pill--blue"><i class="bi bi-gear-fill"></i> Process</span>
+                            <span class="pill">Pipeline</span>
+                        </div>
+
+                        <h3 class="panel__title">Quy Trình Thực Hiện</h3>
+                        <p class="panel__text">
+                            Pipeline được xây dựng theo hướng chuẩn hóa và tự động hóa, đảm bảo tính tái lập.
+                        </p>
+
+                        <div class="workflow-steps">
+                            <div class="step">
+                                <div class="step__num">1</div>
+                                <div class="step__content">
+                                    <h4>Load & Clean Data</h4>
+                                    <p>Loại bỏ transactions rỗng, hủy, âm. Chỉ giữ UK market.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step__num">2</div>
+                                <div class="step__content">
+                                    <h4>Create Basket Matrix</h4>
+                                    <p>One-hot encoding → Boolean matrix (True/False)</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step__num">3</div>
+                                <div class="step__content">
+                                    <h4>Apply Apriori</h4>
+                                    <p>min_support=0.01 → Frequent itemsets</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step__num">4</div>
+                                <div class="step__content">
+                                    <h4>Generate Rules</h4>
+                                    <p>min_confidence=0.3, min_lift=1.2</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step__num">5</div>
+                                <div class="step__content">
+                                    <h4>Visualize & Analyze</h4>
+                                    <p>Network graph, Lift ranking, Insights</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel__media reveal" data-title="Complete Workflow">
+                        <img src="images/anh4.png" alt="Data Mining Workflow">
+                        <div class="panel__cap">
+                            <span class="font-cinzel">Fig. 04</span>
+                            <span>Dòng Chảy Thuật Toán</span>
+                        </div>
+                        <button class="js-expand icon-btn" style="position:absolute;top:12px;right:12px;">
+                            <i class="bi bi-arrows-angle-expand"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== EXPERIMENT RESULTS TABLE ========== -->
+        <section class="panel reveal" id="experiments" data-index="5" data-bg="images/experiments-bg.jpg">
+            <div class="container">
+                <div class="section-head">
+                    <h2 class="section-title">
+                        <span class="grad">Đánh Giá Ảnh Hưởng Các Độ Đo</span>
+                    </h2>
+                    <p class="section-desc">
+                        Thí nghiệm thay đổi từng tham số để quan sát tác động lên số lượng luật sinh ra.
+                    </p>
+                </div>
+
+                <div class="table-wrapper reveal">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Thí nghiệm</th>
+                                <th>Tham số</th>
+                                <th>Số luật</th>
+                                <th>Tỷ lệ giảm</th>
+                                <th>Ý nghĩa quản trị</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="baseline">
+                                <td><b>Baseline</b></td>
+                                <td><code>Default</code></td>
+                                <td><span class="num">1,794</span></td>
+                                <td>—</td>
+                                <td>Bức tranh toàn cảnh hành vi mua sắm</td>
+                            </tr>
+                            <tr>
+                                <td><b>TN 1</b></td>
+                                <td><code>min_support = 0.03</code></td>
+                                <td><span class="num">21</span></td>
+                                <td class="red">~99%</td>
+                                <td>Lọc tìm sản phẩm chủ lực (Key Drivers)</td>
+                            </tr>
+                            <tr>
+                                <td><b>TN 2</b></td>
+                                <td><code>min_confidence = 0.6</code></td>
+                                <td><span class="num">599</span></td>
+                                <td class="orange">~66%</td>
+                                <td>Lọc combo chắc thắng, độ kết dính cao</td>
+                            </tr>
+                            <tr>
+                                <td><b>TN 3</b></td>
+                                <td><code>min_lift = 3.0</code></td>
+                                <td><span class="num">1,773</span></td>
+                                <td class="green">~1%</td>
+                                <td>Xác thực chất lượng mối quan hệ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="insight-grid">
+                    <div class="insight-card reveal">
+                        <div class="insight-icon" style="background:rgba(39,164,242,.14);">
+                            <i class="bi bi-filter-circle" style="color:var(--c2);"></i>
+                        </div>
+                        <h4>Support - Bộ Lọc Phổ Biến</h4>
+                        <p>Tham số nhạy cảm nhất. Tăng nhẹ → giảm theo cấp số nhân.</p>
+                    </div>
+                    <div class="insight-card reveal">
+                        <div class="insight-icon" style="background:rgba(111,194,247,.14);">
+                            <i class="bi bi-check-circle" style="color:var(--c3);"></i>
+                        </div>
+                        <h4>Confidence - Độ Chắc Chắn</h4>
+                        <p>Đánh giá khả năng thành công của lời gợi ý.</p>
+                    </div>
+                    <div class="insight-card reveal">
+                        <div class="insight-icon" style="background:rgba(242,193,78,.14);">
+                            <i class="bi bi-trophy" style="color:var(--gold);"></i>
+                        </div>
+                        <h4>Lift - Thước Đo Chất Lượng</h4>
+                        <p>Loại bỏ sự ngẫu nhiên, xác nhận mối quan hệ thực sự.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== PRODUCT HUB (Network Graph) ========== -->
+        <section class="panel reveal highlight-panel" id="hub" data-index="6" data-bg="images/hub-bg.jpg">
+            <div class="container">
+                <div class="section-head text-center">
+                    <h2 class="section-title">
+                        <span class="font-art" style="font-size:clamp(32px,4vw,52px);color:var(--gold);">
+                            The Product Hub
+                        </span>
+                    </h2>
+                    <p class="section-desc" style="max-width:78ch;margin:12px auto 0;">
+                        Hãy nhìn vào trung tâm của mạng lưới. Nơi các đường liên kết giao nhau dày đặc nhất. 
+                        Đó chính là <b>HERB MARKER</b> cluster với <b>Thyme</b> và <b>Parsley</b> đóng vai trò hub.
+                    </p>
+                </div>
+
+                <div class="panel__media-large reveal" data-title="Network Graph - Herb Marker Cluster">
+                    <img src="images/anh5.png" alt="Product Hub Network">
+                    <div class="graph-overlay">
+                        <div class="graph-note graph-note--tl">
+                            <div class="note-title">Herb Cluster</div>
+                            <p>6 sản phẩm liên kết chặt chẽ</p>
+                        </div>
+                        <div class="graph-note graph-note--br">
+                            <div class="note-title">Lift ~70</div>
+                            <p>Mối quan hệ cực mạnh</p>
+                        </div>
+                    </div>
+                    <button class="js-expand icon-btn" style="position:absolute;top:16px;right:16px;">
+                        <i class="bi bi-arrows-angle-expand"></i>
+                    </button>
+                </div>
+
+                <div class="hub-cards">
+                    <div class="hub-card reveal" data-speed="1.05">
+                        <div class="hub-card__icon">
+                            <i class="bi bi-diagram-3-fill"></i>
+                        </div>
+                        <h4>Cụm Sản Phẩm</h4>
+                        <p>
+                            Các sản phẩm HERB MARKER (Thyme, Parsley, Rosemary, Basil, Mint, Chives) 
+                            tạo thành một cụm liên kết dày đặc, thể hiện qua nhiều cạnh hai chiều.
+                        </p>
+                    </div>
+
+                    <div class="hub-card reveal" data-speed="1.1">
+                        <div class="hub-card__icon" style="background:rgba(242,193,78,.14);">
+                            <i class="bi bi-star-fill" style="color:var(--gold);"></i>
+                        </div>
+                        <h4>Product Hub</h4>
+                        <p>
+                            <b>HERB MARKER THYME</b> và <b>HERB MARKER PARSLEY</b> có số lượng kết nối lớn nhất, 
+                            đóng vai trò trung tâm kéo các sản phẩm khác.
+                        </p>
+                    </div>
+
+                    <div class="hub-card reveal" data-speed="1.15">
+                        <div class="hub-card__icon" style="background:rgba(111,194,247,.14);">
+                            <i class="bi bi-arrow-left-right" style="color:var(--c3);"></i>
+                        </div>
+                        <h4>Mối Quan Hệ Hai Chiều</h4>
+                        <p>
+                            Nhiều cặp có luật A → B và B → A. Không tồn tại sản phẩm "phụ", 
+                            khách hàng linh hoạt lựa chọn theo thói quen nấu ăn.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== TOP LIFT RULES ========== -->
+        <section class="panel reveal" id="lift" data-index="7" data-bg="images/lift-bg.jpg">
+            <div class="container">
+                <div class="panel__grid panel__grid--flip">
+                    <div class="panel__content reveal">
+                        <div class="panel__kicker">
+                            <span class="pill pill--gold"><i class="bi bi-graph-up-arrow"></i> Top 50</span>
+                            <span class="pill">Ranked by Lift</span>
+                        </div>
+
+                        <h3 class="panel__title">Sức Mạnh Của Lift</h3>
+                        <p class="panel__text">
+                            Top 50 luật mạnh nhất đều có <b style="color:var(--gold);">Lift > 60</b>, 
+                            đặc biệt nhóm HERB MARKER xuất hiện dày đặc trong cả vế trái (antecedent) 
+                            và vế phải (consequent).
+                        </p>
+
+                        <div class="lift-highlights">
+                            <div class="lift-item">
+                                <div class="lift-label">Highest Lift</div>
+                                <div class="lift-value">~74.5</div>
+                                <div class="lift-rule">Parsley, Rosemary → Thyme</div>
+                            </div>
+                            <div class="lift-item">
+                                <div class="lift-label">Avg Top 10</div>
+                                <div class="lift-value">~68.2</div>
+                                <div class="lift-rule">Herb cluster dominates</div>
+                            </div>
+                        </div>
+
+                        <p class="panel__text">
+                            <em style="color:var(--gold);">
+                                "Lift cao chứng minh khách hàng mua theo bộ là có chủ đích (nấu ăn), 
+                                hoàn toàn không ngẫu nhiên."
+                            </em>
+                        </p>
+
+                        <div class="panel__actions">
+                            <a href="#insights" class="btn btn--primary">
+                                <span class="btn__ico bi bi-lightbulb"></span>
+                                <span>Xem 5 Insights</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="panel__media reveal" data-title="Top 50 Rules by Lift">
+                        <img src="images/anh6.png" alt="Lift Ranking Chart">
+                        <div class="panel__cap">
+                            <span class="font-cinzel">Fig. 06</span>
+                            <span>Ranking by Lift</span>
+                        </div>
+                        <button class="js-expand icon-btn" style="position:absolute;top:12px;right:12px;">
+                            <i class="bi bi-arrows-angle-expand"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== 5 KEY INSIGHTS ========== -->
+        <section class="panel reveal" id="insights" data-index="8" data-bg="images/insights-bg.jpg">
+            <div class="container">
+                <div class="section-head">
+                    <h2 class="section-title">
+                        <span class="grad">5 Insights Quan Trọng</span>
+                    </h2>
+                    <p class="section-desc">
+                        Những phát hiện then chốt từ phân tích mạng lưới và biểu đồ Lift.
+                    </p>
+                </div>
+
+                <div class="insights-list">
+                    <!-- Insight 1 -->
+                    <div class="insight-row reveal">
+                        <div class="insight-num">01</div>
+                        <div class="insight-content">
+                            <h3>Nhóm HERB MARKER Tạo Cộng Đồng Chặt Chẽ</h3>
+                            <p>
+                                Network graph cho thấy các sản phẩm trong nhóm HERB MARKER (Parsley, Thyme, Rosemary, Basil, Mint, Chives) 
+                                tạo thành một cụm liên kết dày đặc với nhiều cạnh hai chiều. 
+                                Đây là một <b>product family</b> rõ ràng, không được mua riêng lẻ mà thường xuất hiện cùng nhau trong giỏ hàng.
+                            </p>
+                            <div class="insight-action">
+                                <i class="bi bi-arrow-right-circle"></i>
+                                <span>Xây dựng hệ sinh thái 6 sản phẩm, không bán riêng lẻ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 2 -->
+                    <div class="insight-row reveal">
+                        <div class="insight-num">02</div>
+                        <div class="insight-content">
+                            <h3>THYME & PARSLEY Là Product Hub Trung Tâm</h3>
+                            <p>
+                                Hai sản phẩm này có số lượng kết nối lớn nhất, vừa đóng vai trò <b>antecedent</b> (dẫn tới sản phẩm khác) 
+                                vừa xuất hiện thường xuyên ở <b>consequent</b>. 
+                                Khi khách hàng mua Thyme hoặc Parsley, xác suất họ mua thêm các loại herb khác tăng đáng kể.
+                            </p>
+                            <div class="insight-action">
+                                <i class="bi bi-arrow-right-circle"></i>
+                                <span>Chọn THYME & PARSLEY làm "mồi chiến lược" cho cross-selling</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 3 -->
+                    <div class="insight-row reveal">
+                        <div class="insight-num">03</div>
+                        <div class="insight-content">
+                            <h3>Lift Cao Chứng Minh Hành Vi Có Chủ Đích</h3>
+                            <p>
+                                Nhiều luật có Lift ~70, đặc biệt giữa các cặp herb. Lift cao đồng nghĩa với việc 
+                                khách mua sản phẩm A có khả năng mua B <b>cao hơn rất nhiều lần</b> so với mua ngẫu nhiên. 
+                                Điều này xác nhận các luật phát hiện có giá trị kinh doanh thực tế.
+                            </p>
+                            <div class="insight-action">
+                                <i class="bi bi-arrow-right-circle"></i>
+                                <span>Thiết kế combo và cross-selling vì hành vi mua là có chủ đích</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 4 -->
+                    <div class="insight-row reveal">
+                        <div class="insight-num">04</div>
+                        <div class="insight-content">
+                            <h3>Mối Quan Hệ Mang Tính Hai Chiều</h3>
+                            <p>
+                                Nhiều cặp sản phẩm có luật <b>A → B</b> và <b>B → A</b> (ví dụ: Thyme ↔ Rosemary, Parsley ↔ Basil). 
+                                Không tồn tại sản phẩm "phụ" rõ ràng, khách hàng linh hoạt lựa chọn theo thói quen nấu ăn.
+                            </p>
+                            <div class="insight-action">
+                                <i class="bi bi-arrow-right-circle"></i>
+                                <span>Combo linh hoạt: cho phép khách chọn 3 trong 6 loại herb</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insight 5 -->
+                    <div class="insight-row reveal">
+                        <div class="insight-num">05</div>
+                        <div class="insight-content">
+                            <h3>Tối Ưu Cross-selling Và Bố Trí Cụm</h3>
+                            <p>
+                                Các sản phẩm HERB MARKER nên được đặt gần nhau. Cross-selling hiệu quả nhất khi 
+                                chọn 1-2 Product Hub (Thyme, Parsley) làm trung tâm, bao quanh bằng các sản phẩm còn lại. 
+                                Thay vì quảng bá riêng lẻ, nên bundle theo "herb cooking set".
+                            </p>
+                            <div class="insight-action">
+                                <i class="bi bi-arrow-right-circle"></i>
+                                <span>Thiết kế layout kệ theo cụm, đặt hub ở vị trí trung tâm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== BUSINESS RECOMMENDATIONS ========== -->
+        <section class="panel reveal" id="recommendations" data-index="9" data-bg="images/recommendations-bg.jpg">
+            <div class="container">
+                <div class="section-head">
+                    <h2 class="section-title">
+                        <span class="grad">Đề Xuất Kinh Doanh</span>
+                    </h2>
+                    <p class="section-desc">
+                        Các chiến lược cụ thể dựa trên insights để tối ưu doanh thu và trải nghiệm khách hàng.
+                    </p>
+                </div>
+
+                <div class="recommendations-grid">
+                    <div class="rec-card reveal">
+                        <div class="rec-icon">
+                            <i class="bi bi-layout-three-columns"></i>
+                        </div>
+                        <h4>1. Tối Ưu Bố Trí Kệ Hàng</h4>
+                        <p>
+                            Gộp toàn bộ nhóm HERB MARKER thành một khu vực riêng. 
+                            Đặt <b>THYME</b> và <b>PARSLEY</b> ở vị trí trung tâm hoặc ngang tầm mắt.
+                        </p>
+                        <div class="rec-layout">
+                            <div class="rec-shelf">
+                                <span>[Parsley]</span>
+                                <span>[Thyme]</span>
+                            </div>
+                            <div class="rec-shelf">
+                                <span>[Basil]</span>
+                                <span>[Rosemary]</span>
+                            </div>
+                            <div class="rec-shelf">
+                                <span>[Mint]</span>
+                                <span>[Chives]</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rec-card reveal">
+                        <div class="rec-icon" style="background:rgba(242,193,78,.14);">
+                            <i class="bi bi-box-seam" style="color:var(--gold);"></i>
+                        </div>
+                        <h4>2. Thiết Kế Combo Sản Phẩm</h4>
+                        <p>
+                            Tạo các combo nấu ăn như "Combo gia vị Ý" hoặc "Combo herb cơ bản". 
+                            Mỗi combo lấy Product Hub (Thyme/Parsley) làm chính, kèm 2-3 herb khác.
+                        </p>
+                        <ul class="rec-list">
+                            <li><i class="bi bi-check2"></i> Combo Ý: Basil + Oregano + Thyme</li>
+                            <li><i class="bi bi-check2"></i> Combo Pháp: Parsley + Tarragon + Chervil</li>
+                            <li><i class="bi bi-check2"></i> Combo Starter: Thyme + Parsley + Rosemary</li>
+                        </ul>
+                    </div>
+
+                    <div class="rec-card reveal">
+                        <div class="rec-icon" style="background:rgba(111,194,247,.14);">
+                            <i class="bi bi-percent" style="color:var(--c3);"></i>
+                        </div>
+                        <h4>3. Khuyến Mãi Xoay Quanh Hub</h4>
+                        <p>
+                            Áp dụng giảm giá nhẹ cho Product Hub thay vì giảm đồng loạt. 
+                            Ví dụ: <b>Mua THYME → giảm 10% khi mua thêm Rosemary hoặc Basil.</b>
+                        </p>
+                        <div class="rec-promo">
+                            <div class="promo-box">
+                                <div class="promo-title">Mua Thyme</div>
+                                <div class="promo-discount">-10%</div>
+                                <div class="promo-sub">Khi mua kèm Herb khác</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rec-card reveal">
+                        <div class="rec-icon" style="background:rgba(159,215,249,.14);">
+                            <i class="bi bi-robot" style="color:var(--c4);"></i>
+                        </div>
+                        <h4>4. Ứng Dụng Vào POS/Online</h4>
+                        <p>
+                            Khi khách thêm Thyme hoặc Parsley vào giỏ → gợi ý ngay các herb liên quan. 
+                            Nội dung: <i>"Khách hàng thường mua kèm..." hoặc "Phù hợp cho món bạn đang chuẩn bị"</i>.
+                        </p>
+                    </div>
+
+                    <div class="rec-card reveal">
+                        <div class="rec-icon" style="background:rgba(242,193,78,.14);">
+                            <i class="bi bi-calendar-event" style="color:var(--gold);"></i>
+                        </div>
+                        <h4>5. Điều Chỉnh Theo Mùa</h4>
+                        <p>
+                            Nhóm HERB MARKER phù hợp cho các chiến dịch theo mùa (lễ hội, cuối năm). 
+                            Thay đổi vị trí kệ và đẩy mạnh combo herb trong các dịp cao điểm.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CONCLUSION & NEXT LAB ========== -->
+        <section class="end reveal" data-index="10" data-bg="images/conclusion-bg.jpg">
+            <div class="container">
+                <div class="end__box">
+                    <h2 class="end__title">
+                        <span class="font-art text-gold" style="font-size:clamp(32px,4vw,48px);">Kết Luận</span>
+                    </h2>
+                    <p class="end__desc">
+                        Thông qua việc áp dụng thuật toán <b>Apriori</b> trên 485,123 giao dịch, 
+                        chúng ta đã xác định rõ ràng sự tồn tại của <b style="color:var(--gold);">Product Hub</b> 
+                        trong nhóm sản phẩm <b>HERB MARKER</b>. Các sản phẩm như Thyme, Parsley, Rosemary 
+                        không chỉ xuất hiện thường xuyên mà còn hình thành mạng lưới mua sắm chặt chẽ (Lift ~70).
+                        <br><br>
+                        Kết quả phân tích cung cấp cơ sở dữ liệu vững chắc cho các quyết định kinh doanh, 
+                        đặc biệt trong <b>cross-selling</b> và <b>tối ưu bố trí hàng hóa</b>.
+                    </p>
+
+                    <div class="end__actions">
+                        <button class="btn btn--primary" id="openLabPdf2">
+                            <span class="btn__ico bi bi-file-earmark-pdf"></span>
+                            <span>Đọc Full Report</span>
+                        </button>
+                        <a class="btn btn--ghost" href="lab2.html">
+                            <span>Lab 2: Sunflowers</span>
+                            <span class="btn__ico bi bi-arrow-right"></span>
+                        </a>
+                        <a class="btn btn--ghost" href="https://github.com/VINH1811/shopping_cart_analysis" target="_blank">
+                            <span class="btn__ico bi bi-github"></span>
+                            <span>View GitHub Repo</span>
+                        </a>
+                    </div>
+
+                    <div class="end__bottom">
+                        <span>© 2025 WL-Datamining • Lab 1 • Van Gogh Theme</span>
+                        <button class="to-top" id="toTop" title="Back to top">
+                            <i class="bi bi-arrow-up"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== MODALS ========== -->
+
+    <!-- Image Expand Modal -->
+    <div class="modal2" id="expandModal">
+        <div class="modal2__backdrop"></div>
+        <div class="modal2__panel">
+            <div class="modal2__bar">
+                <div class="modal2__title">
+                    <span class="modal2__dot"></span>
+                    <span class="modal2__name" id="expandTitle">Figure Detail</span>
+                </div>
+                <button class="icon-btn" id="expandClose">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div class="modal2__body">
+                <img src="" alt="Expanded" id="expandImg">
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF Modal -->
+    <div class="modal" id="pdfModal">
+        <div class="modal__backdrop"></div>
+        <div class="modal__panel">
+            <div class="modal__bar">
+                <div class="modal__title">
+                    <span class="modal__dot"></span>
+                    <span class="modal__name" id="pdfTitle">Lab 1 Report</span>
+                </div>
+                <div class="modal__actions">
+                    <a class="icon-btn" id="pdfOpenNew" href="#" target="_blank">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                        <span>Mở tab mới</span>
+                    </a>
+                    <a class="icon-btn" id="repoOpen" href="#" target="_blank" style="display:none;">
+                        <i class="bi bi-github"></i>
+                        <span>Repo</span>
+                    </a>
+                    <button class="icon-btn icon-btn--danger" id="pdfClose">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal__body">
+                <iframe id="pdfFrame" title="PDF Preview"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/lab1.js"></script>
+</body>
+</html>

@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="vi" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Lab 2 • Market Basket Analysis - Sunflowers Edition | WL-Datamining</title>
+    <meta name="description" content="Khám phá High-Utility Mining và Market Basket Analysis qua phong cách nghệ thuật Van Gogh - Sunflowers theme.">
+
+    <!-- Fonts (Fix Vietnamese) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- ✨ FIXED: THÊM ORBITRON VÀO -->
+   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@200;300;400;500;600;700;800;900&family=Pinyon+Script&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets\css\lab2.css">
+
+    <script>document.documentElement.className='js'</script>
+</head>
+
+<body class="loading">
+
+
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader__bg"></div>
+        <div class="loader__content">
+            <div class="loader__stars">
+                <div class="loader__star"></div>
+                <div class="loader__star"></div>
+                <div class="loader__star"></div>
+            </div>
+            <h2 class="loader__title font-art">Market Basket Analysis</h2>
+            <p class="loader__subtitle">Van Gogh • Sunflowers Edition</p>
+            <div class="loader__counter" id="loaderCounter">0%</div>
+        </div>
+    </div>
+
+
+
+    <!-- Background Stage -->
+    <div class="bg-stage">
+        <canvas id="wheatCanvas"></canvas>
+        <div class="bg-layer bg-a"></div>
+        <div class="bg-layer bg-b"></div>
+        <div class="bg-vignette"></div>
+        <div class="bg-grain"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+
+
+    <!-- NAVBAR -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__inner">
+                <a href="index.html" class="nav__brand">
+                    <div class="nav__logo">
+                        <img src="images/logo-wl.png" alt="WL Logo" />
+                    </div>
+                    <div class="nav__title">
+                        <b>WL • Datamining</b>
+                        <small>Lab 2 • Sunflowers</small>
+                    </div>
+                </a>
+
+                <div class="nav__links">
+                    <a href="index.html" class="nav__link">Trang chủ</a>
+                    <a href="lab1.html" class="nav__link">Lab 1</a>
+                    <a href="lab2.html" class="nav__link">Lab 2</a>
+                    <a href="lab3.html" class="nav__link">Lab 3</a>
+                    <a href="lab4.html" class="nav__link">Lab 4</a>
+                </div>
+
+
+                <button class="nav__toggle" id="navToggle" aria-label="Menu">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="nav__mobile" id="navMobile" hidden>
+            <a href="index.html" class="nav__m-link">Trang chủ</a>
+            <a href="lab1.html" class="nav__m-link">Lab 1</a>
+            <a href="lab2.html" class="nav__m-link">Lab 2</a>
+            <a href="lab3.html" class="nav__m-link">Lab 3</a>
+            <a href="lab4.html" class="nav__m-link">Lab 4</a>
+        </div>
+    </nav>
+
+
+
+    <!-- Rope Timeline -->
+    <div class="rope">
+        <div class="rope__line"></div>
+        <div class="rope__dots" id="ropeDots"></div>
+    </div>
+
+
+
+    <!-- Hero Section -->
+  <!-- ========== HERO ========== -->
+<header class="hero panel reveal" data-index="0" data-bg="images/hub-bg.jpg">
+    <div class="container">
+        <div class="hero__grid">
+            <!-- LEFT: Content -->
+            <div class="hero__content" data-speed="0.9">
+                <div class="hero__badge">
+                    <span class="hero__badge-dot"></span>
+                    <span>Lab 2 • Nhóm 3 • CNTT17-13</span>
+                </div>
+
+                <h1 class="hero__title">
+                    <span>Cuộc chiến giữa</span>
+                    <span class="t2"> "Số Lượng" và "Chất Lượng"</span>
+                    
+                </h1>
+
+                <p class="hero__desc">
+                    Chuyển dịch tư duy: Từ tối ưu <b>số lượng</b> (Apriori) sang 
+                    tối đa hóa <b class="text-gold">lợi nhuận thực tế</b> (High-Utility Mining). 
+                    Khám phá những <b class="text-gold">"Hidden Gems"</b> mà thuật toán cũ bỏ lỡ.
+                </p>
+
+                <div class="hero__actions">
+                    <button class="btn btn--primary" id="openLabPdf">
+                        <span class="btn__ico bi bi-file-earmark-pdf"></span>
+                        <span>Đọc Report (PDF)</span>
+                    </button>
+                    <a class="btn btn--ghost" href="https://github.com/VINH1811/shopping_cart_advanced_analysis" target="_blank">
+                        <span class="btn__ico bi bi-github"></span>
+                        <span>GitHub Repository</span>
+                    </a>
+                </div>
+
+                <div class="hero__chips">
+                    <span class="chip chip--hot"><i class="bi bi-fire"></i> High-Utility Mining</span>
+                    <span class="chip chip--cold"><i class="bi bi-diagram-3"></i> FP-Growth Algorithm</span>
+                    <span class="chip chip--cold"><i class="bi bi-gem"></i> BCG Strategy</span>
+                </div>
+            </div>
+
+            <!-- RIGHT: Stats Card -->
+            <div class="hero__card" data-speed="1.1">
+                <div class="hero__card-top">
+                    <div class="mini-ico">
+                        <i class="bi bi-graph-up" style="font-size:22px;color:var(--sunflower);"></i>
+                    </div>
+                    <div>
+                        <div class="hero__card-title">Dataset Overview</div>
+                        <div class="hero__card-sub">UK Online Retail 2010-2011</div>
+                    </div>
+                </div>
+
+                <div class="hero__facts">
+                    <div class="fact">
+                        <div class="fact__num counter" data-target="18021">0</div>
+                        <div class="fact__label">Giao dịch</div>
+                    </div>
+                    <div class="fact">
+                        <div class="fact__num counter" data-target="541909">0</div>
+                        <div class="fact__label">Dòng dữ liệu</div>
+                    </div>
+                    <div class="fact">
+                        <div class="fact__num counter" data-target="3952">0</div>
+                        <div class="fact__label">Sản phẩm</div>
+                    </div>
+                </div>
+
+                <div class="hero__note">
+                    Sau khi làm sạch dữ liệu (loại bỏ <code>Quantity ≤ 0</code>, đơn hủy với 
+                    <code>InvoiceNo</code> bắt đầu "C"), phân tích <b>High-Utility Itemsets</b> 
+                    để tìm combo mang lại doanh thu cao nhất.
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>SCROLL TO DISCOVER</span>
+            <div class="mouse"><div class="wheel"></div></div>
+        </div>
+    </div>
+    <div class="hero__fade"></div>
+</header>
+
+
+    <!-- Main Content -->
+    <main class="main">
+
+
+
+        <!-- ========== 1. PHÂN TÍCH NÂNG CAO ========== -->
+        <section id="analysis" class="panel reveal" data-bg="images/algorithm-bg.jpg">
+            <div class="container">
+                <div class="section-head center">
+                    <h2 class="section-title">
+                        PHÂN TÍCH <span class="text-gold">NÂNG CAO</span>
+                    </h2>
+                    <p class="section-desc">
+                        Khám phá chi tiết về thuật toán và phương pháp tiếp cận
+                    </p>
+                </div>
+
+
+                <!-- ẢNH 1: Phantichnangcao.png -->
+                <div class="panel__media reveal">
+                    <img src="images/Phantichnangcao.png" 
+                         alt="Phân tích nâng cao Market Basket Analysis" 
+                         class="js-expand img-responsive">
+                    <div class="panel__cap">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Fig 1: Phân Tích Nâng Cao Thuật Toán
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ========== 2. PERFORMANCE COMPARISON ========== -->
+        <section id="performance" class="panel reveal" data-bg="images/bfs-bg.jpg">
+            <div class="container">
+                <div class="section-head">
+                    <h2 class="section-title text-left">
+                        CUỘC ĐUA <span class="text-gold">TỐC ĐỘ</span>
+                    </h2>
+                </div>
+
+
+                <div class="panel__grid">
+                    <div class="panel__content">
+                        <div class="panel__kicker">
+                            <span class="pill pill--gold">
+                                <i class="fa-solid fa-microchip"></i>
+                                Core Algorithm
+                            </span>
+                        </div>
+
+
+                        <h3 class="panel__title">Vấn Đề Cốt Lõi</h3>
+                        <p class="panel__text">
+                            Tại ngưỡng Support thấp (0.6%), thuật toán cũ <strong>Apriori</strong> 
+                            sinh ra hàng triệu ứng viên ảo, gây tràn bộ nhớ (Memory Error) và lãng phí tài nguyên.
+                        </p>
+
+
+                        <div class="quote-box">
+                            <div class="quote-icon">⚡</div>
+                            <p class="quote-text">
+                                FP-Growth sử dụng cấu trúc cây nén (FP-Tree) giúp quét dữ liệu chỉ 2 lần. 
+                                Chạy ổn định và nhanh hơn gấp nhiều lần, là nền tảng cho phân tích Big Data.
+                            </p>
+                            <p class="quote-author">— Giải pháp tối ưu</p>
+                        </div>
+                    </div>
+
+
+                    <!-- ẢNH 2: output3.png (Apriori Error) -->
+                    <div class="panel__media">
+                        <img src="images/output3.png" 
+                             alt="Apriori Memory Error Analysis" 
+                             class="js-expand img-responsive">
+                        <div class="panel__cap">
+                            <i class="fa-solid fa-exclamation-triangle"></i>
+                            Fig 2: Apriori Crash Analysis
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Performance Table -->
+                <div class="table-wrapper reveal">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Support Threshold</th>
+                                <th>Apriori Time</th>
+                                <th>FP-Growth Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>0.020 (2%)</code></td>
+                                <td class="num">1.65s</td>
+                                <td class="num">6.93s</td>
+                                <td class="green">Apriori nhanh hơn ngưỡng cao</td>
+                            </tr>
+                            <tr>
+                                <td><code>0.010 (1%)</code></td>
+                                <td class="num">68.44s</td>
+                                <td class="num">52.45s</td>
+                                <td class="orange">FP-Growth bắt đầu vượt trội</td>
+                            </tr>
+                            <tr>
+                                <td><code>0.008 (0.8%)</code></td>
+                                <td class="num">251.11s</td>
+                                <td class="num">134.97s</td>
+                                <td class="orange">Chênh lệch hiệu năng rõ rệt</td>
+                            </tr>
+                            <tr class="baseline">
+                                <td><code>0.006 (0.6%)</code></td>
+                                <td class="red"><strong>MEMORY ERROR</strong></td>
+                                <td class="num green"><strong>210s</strong></td>
+                                <td class="green">Chỉ FP-Growth chạy được</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <!-- ẢNH 3: performance_comparison.png -->
+                <div class="panel__media reveal" style="margin-top: 40px;">
+                    <img src="images/performance_comparison.png" 
+                         alt="Runtime Sensitivity vs Support Threshold" 
+                         class="js-expand img-responsive">
+                    <div class="panel__cap">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Fig 3: Runtime Sensitivity vs Support
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ========== 3. BCG MATRIX & SUNBURST ========== -->
+        <section id="deep-dive" class="panel reveal" data-bg="images/experiments-bg.jpg">
+            <div class="container">
+                <div class="section-head center">
+                    <h2 class="section-title">
+                        PHÂN TÍCH <span class="text-gold">CHIỀU SÂU</span>
+                    </h2>
+                    <p class="section-desc">
+                        Dữ liệu chỉ ra sự đối lập rõ rệt giữa <strong>Tần suất</strong> 
+                        và <strong class="text-gold">Giá trị thực tế</strong>. 
+                        Ma trận BCG tiết lộ những "Hidden Gems" bị bỏ quên.
+                    </p>
+                </div>
+
+
+                <!-- BCG Matrix Interactive -->
+                <div class="insight-block">
+                    <div class="panel__grid">
+                        <!-- IFRAME 1: BCG Matrix -->
+                        <div class="panel__media-large">
+                            <div class="cyber-portal">
+                                <iframe src="bcg_matrix_balanced.html" 
+                                        class="interactive-frame"
+                                        title="BCG Matrix Interactive"
+                                        loading="lazy">
+                                </iframe>
+                                <div class="portal-scanline"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel__content">
+                            <div class="panel__kicker">
+                                <span class="pill pill--gold">
+                                    <i class="fa-solid fa-gem"></i>
+                                    BCG Matrix
+                                </span>
+                            </div>
+
+
+                            <h3 class="panel__title">Phân Định: Báu Vật & Bò Sữa</h3>
+                            <p class="panel__text">
+                                Dữ liệu chỉ ra sự đối lập rõ rệt giữa Tần suất và Giá trị thực tế.
+                            </p>
+
+
+                            <div class="workflow-steps">
+                                <div class="step">
+                                    <div class="step__num">1</div>
+                                    <div class="step__content">
+                                        <h4>Hidden Gems (Báu vật ẩn)</h4>
+                                        <p>
+                                            Điển hình là <em>"Jam Making Set"</em>. Tuy ít người mua (Low Freq) 
+                                            nhưng mang lại lợi nhuận biên cực cao. Đây là mỏ vàng cần khai thác.
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                                <div class="step">
+                                    <div class="step__num">2</div>
+                                    <div class="step__content">
+                                        <h4>Cash Cows (Bò sữa)</h4>
+                                        <p>
+                                            Điển hình là <em>"Regency Cakestand 3 Tier"</em>. Độ phủ thị trường 10% 
+                                            nhưng lãi mỏng. Vai trò chính là duy trì dòng tiền và traffic.
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                                <div class="step">
+                                    <div class="step__num">3</div>
+                                    <div class="step__content">
+                                        <h4>Dogs (Chó mực)</h4>
+                                        <p>
+                                            Hàng tồn kho kém hiệu quả, chiếm dụng vốn và kho bãi. 
+                                            Cần thanh lý để giải phóng nguồn lực.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- ẢNH 4: output2.png (BCG Static) -->
+                            <div class="panel__media" style="margin-top: 30px;">
+                                <img src="images/output2.png" 
+                                     alt="BCG Matrix Static Analysis" 
+                                     class="js-expand img-responsive">
+                                <div class="panel__cap">
+                                    <i class="fa-solid fa-chart-scatter"></i>
+                                    Fig 4: BCG Scatter Plot (Static)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Sunburst Leverage -->
+                <div class="insight-block" style="margin-top: 100px;">
+                    <div class="panel__grid panel__grid--flip">
+                        <!-- IFRAME 2: Sunburst -->
+                        <div class="panel__media-large">
+                            <div class="cyber-portal">
+                                <iframe src="sunburst_revenue_structure.html" 
+                                        class="interactive-frame"
+                                        title="Sunburst Revenue Structure"
+                                        loading="lazy">
+                                </iframe>
+                                <div class="portal-scanline"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel__content">
+                            <div class="panel__kicker">
+                                <span class="pill pill--blue">
+                                    <i class="fa-solid fa-chart-pie"></i>
+                                    Financial Leverage
+                                </span>
+                            </div>
+
+
+                            <h3 class="panel__title">Đòn Bẩy Tài Chính</h3>
+                            <p class="panel__text">
+                                Không phải combo nào cũng sinh lời như nhau. Chúng ta cần tìm ra các "Combo Vàng" 
+                                có hệ số đòn bẩy cao nhất.
+                            </p>
+
+
+                            <div class="lift-highlights">
+                                <div class="lift-item">
+                                    <div class="lift-label">Highest Leverage</div>
+                                    <div class="lift-value">~5.5x</div>
+                                    <div class="lift-rule">DOTCOM POSTAGE + JAM MAKING SET</div>
+                                </div>
+                                <div class="lift-item">
+                                    <div class="lift-label">Strong Combo</div>
+                                    <div class="lift-value">~4.2x</div>
+                                    <div class="lift-rule">SUKI SHOULDER BAG + POSTAGE</div>
+                                </div>
+                            </div>
+
+
+                            <div class="quote-box">
+                                <div class="quote-icon">💡</div>
+                                <p class="quote-text">
+                                    Khách hàng sẵn sàng trả phí ship cao để mua các món đồ độc đáo, giá trị cao. 
+                                    Đây là insight quan trọng cho chiến lược pricing.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ========== 4. NETWORK & LIFT ANALYSIS ========== -->
+        <section id="nexus" class="panel reveal" data-bg="images/lift-bg.jpg">
+            <div class="container">
+                <div class="section-head center">
+                    <h2 class="section-title">
+                        MẠNG LƯỚI <span class="text-gold">LIÊN KẾT</span>
+                    </h2>
+                    <p class="section-desc">
+                        Sử dụng chỉ số <strong>Lift</strong> để đo lường sức mạnh kết nối thực tế 
+                        giữa các sản phẩm. Các cụm sản phẩm (Cluster) tạo doanh thu đậm đặc.
+                    </p>
+                </div>
+
+
+                <div class="panel__grid">
+                    <div class="panel__content">
+                        <h3 class="panel__title">Sức Mạnh Cộng Hưởng (Affinity)</h3>
+
+
+                        <div class="stat-grid">
+                            <div class="stat-box">
+                                <span class="stat-num">~15x</span>
+                                <span class="stat-desc">Lift: Wooden Star + Tree</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-num">>80%</span>
+                                <span class="stat-desc">Confidence: Tea Set + Sugar</span>
+                            </div>
+                        </div>
+
+
+                        <div class="glass-panel" style="margin-top: 20px;">
+                            <h4><i class="fa-solid fa-layer-group"></i> Cụm sản phẩm (Cluster)</h4>
+                            <p>
+                                Các loại ly <em>"Beaker"</em> nhiều màu sắc tạo thành một cụm doanh thu đậm đặc, 
+                                khách thường mua trọn bộ sưu tập.
+                            </p>
+                        </div>
+
+
+                        <!-- ẢNH 5: bar_chart_lift.png -->
+                        <div class="panel__media" style="margin-top: 30px;">
+                            <img src="images/bar_chart_lift.png" 
+                                 alt="Top 5 Association Rules by Lift Score" 
+                                 class="js-expand img-responsive">
+                            <div class="panel__cap">
+                                <i class="fa-solid fa-chart-bar"></i>
+                                Fig 5: Top 5 Lift Rules
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="panel__media-large">
+                        <!-- IFRAME 3: Network Graph -->
+                        <div class="cyber-portal portal-tall">
+                            <iframe src="network_revenue_flow.html" 
+                                    class="interactive-frame"
+                                    title="Network Revenue Flow Interactive"
+                                    loading="lazy">
+                            </iframe>
+                            <div class="portal-scanline"></div>
+                        </div>
+                        <p class="section-desc center" style="margin-top: 20px;">
+                            Mô hình tương tác dòng chảy doanh thu giữa các cụm sản phẩm
+                        </p>
+
+                        <!-- ẢNH 6: network_graph.png -->
+                        <div class="panel__media" style="margin-top: 20px;">
+                            <img src="images/network_graph.png" 
+                                 alt="Basic Network Graph Visualization" 
+                                 class="js-expand img-responsive">
+                            <div class="panel__cap">
+                                <i class="fa-solid fa-project-diagram"></i>
+                                Fig 6: Basic Network Graph
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ========== 5. RANKING COMPARISON ========== -->
+        <section id="ranking" class="panel reveal" data-bg="images/insights-bg.jpg">
+            <div class="container">
+                <div class="section-head center">
+                    <h2 class="section-title">
+                        SO SÁNH <span class="text-gold">XẾP HẠNG</span>
+                    </h2>
+                    <p class="section-desc">
+                        Đối chiếu trực tiếp: Top sản phẩm theo Tần suất vs. Top theo Giá trị
+                    </p>
+                </div>
+
+
+                <!-- ẢNH 7: chart_ranking_comparison.png -->
+                <div class="panel__media reveal">
+                    <img src="images/chart_ranking_comparison.png" 
+                         alt="Ranking Comparison: Frequency vs Utility" 
+                         class="js-expand img-responsive">
+                    <div class="panel__cap">
+                        <i class="fa-solid fa-ranking-star"></i>
+                        Fig 7: Ranking Comparison Analysis
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ========== 6. STRATEGY ========== -->
+        <section id="strategy" class="panel reveal" data-bg="images/recommendations-bg.jpg">
+            <div class="container">
+                <div class="section-head center">
+                    <h2 class="section-title">
+                        CHIẾN LƯỢC <span class="text-gold">KINH DOANH</span>
+                    </h2>
+                    <p class="section-desc">
+                        5 Mũi nhọn hành động để tối đa hóa lợi nhuận dựa trên phân tích dữ liệu
+                    </p>
+                </div>
+
+
+                <div class="strategy-grid">
+                    <div class="strat-node node-green reveal">
+                        <div class="node-icon"><i class="fa-solid fa-box-open"></i></div>
+                        <h3>SMART BUNDLING</h3>
+                        <p>
+                            <strong>Insight:</strong> Đòn bẩy tài chính cao ở các nhóm hàng ngách.<br>
+                            <strong>Hành động:</strong> Miễn phí vận chuyển (Postage) cho khách mua 
+                            Combo thuộc nhóm "High Leverage". Kích cầu vào nhóm xanh đậm trên biểu đồ.
+                        </p>
+                    </div>
+
+                    <div class="strat-node node-purple reveal">
+                        <div class="node-icon"><i class="fa-solid fa-eye"></i></div>
+                        <h3>VISUAL MERCHANDISING</h3>
+                        <p>
+                            <strong>Insight:</strong> Cặp <em>Wooden Star</em> & <em>Wooden Tree</em> có Lift ~15.<br>
+                            <strong>Hành động:</strong> Đặt cạnh nhau trên kệ hàng vật lý và khu vực 
+                            "Gợi ý mua kèm" trên website để tăng tỷ lệ chốt đơn tự nhiên.
+                        </p>
+                    </div>
+
+                    <div class="strat-node node-blue reveal">
+                        <div class="node-icon"><i class="fa-solid fa-cubes"></i></div>
+                        <h3>SÁNG TẠO SKU MỚI</h3>
+                        <p>
+                            <strong>Insight:</strong> Cụm <em>Beaker</em> thường được mua cùng nhau.<br>
+                            <strong>Hành động:</strong> Tạo gói sản phẩm <em>"Bộ sưu tập Beaker 3 màu"</em> 
+                            với giá ưu đãi nhẹ, khuyến khích khách mua trọn bộ thay vì mua lẻ.
+                        </p>
+                    </div>
+
+
+                    <div class="strat-node node-orange reveal">
+                        <div class="node-icon"><i class="fa-solid fa-robot"></i></div>
+                        <h3>TỰ ĐỘNG HÓA (CHATBOT)</h3>
+                        <p>
+                            <strong>Insight:</strong> Quy luật mua sắm có độ tin cậy (Confidence) > 80%.<br>
+                            <strong>Hành động:</strong> Tích hợp vào Chatbot. Khi khách chọn <em>Tea Set</em>, 
+                            Bot tự động gợi ý <em>Sugar Bowl</em> vì dữ liệu chứng minh tỷ lệ thành công cực cao.
+                        </p>
+                    </div>
+
+
+                    <div class="strat-node node-red reveal">
+                        <div class="node-icon"><i class="fa-solid fa-warehouse"></i></div>
+                        <h3>QUẢN TRỊ KHO & PHỄU</h3>
+                        <p>
+                            <strong>Hành động:</strong> Dùng "Cash Cows" (Bò sữa) làm sản phẩm mồi (Loss Leader) 
+                            để kéo traffic. Quyết liệt thanh lý nhóm "Dogs" để giải phóng vốn.
+                        </p>
+                    </div>
+                </div>
+
+
+                <!-- ẢNH 8: output.png (Final Comparison) -->
+                <div class="panel__media-large reveal" style="margin-top: 80px;">
+                    <h3 class="section-title center">Tổng Kết: Sự Khác Biệt Của Chiến Lược Mới</h3>
+                    <p class="section-desc center">
+                        So sánh trực quan: Top theo Tần suất (Cũ) vs. Top theo Giá trị (Mới)
+                    </p>
+                    <img src="images/output.png" 
+                         alt="Final Ranking Comparison: Old vs New Strategy" 
+                         class="img-responsive" 
+                         style="margin-top: 30px; border-radius: var(--radius); box-shadow: var(--shadow);">
+                    <div class="panel__cap" style="position: static; margin-top: 15px; text-align: center;">
+                        <i class="fa-solid fa-trophy"></i>
+                        Fig 8: Final Ranking Comparison
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ========== 7. CONCLUSION (MỚI THÊM) ========== -->
+        <section id="conclusion" class="panel reveal" data-bg="images/conclusion-bg.jpg">
+            <div class="container">
+                <div class="section-head center">
+                    <h2 class="section-title">
+                        KẾT LUẬN & <span class="text-gold">THÀNH TỰU</span>
+                    </h2>
+                    <p class="section-desc">
+                        Dự án không chỉ dừng lại ở việc tìm ra các tập mục phổ biến, mà còn đi sâu vào 
+                        <strong class="text-gold">giá trị kinh tế thực tế</strong>, giúp chuyển đổi dữ liệu thô 
+                        thành chiến lược lợi nhuận cụ thể thông qua High-Utility Itemset Mining (HUIM).
+                    </p>
+                </div>
+
+
+                <!-- Conclusion Cards -->
+                <div class="conclusion-grid reveal">
+                    <!-- Card 1: Frequency vs Value -->
+                    <div class="conclusion-card">
+                        <div class="conclusion-icon conclusion-icon--freq">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h3>Tần Suất ≠ Giá Trị</h3>
+                        <p>
+                            Các mặt hàng bán chạy nhất như <strong>Regency Cakestand 3 Tier</strong> 
+                            thường có biên lợi nhuận thấp. Trong khi đó, các sản phẩm ít phổ biến hơn 
+                            lại mang lại giá trị kinh tế cao hơn nhiều lần.
+                        </p>
+                    </div>
+
+
+                    <!-- Card 2: Hidden Gems -->
+                    <div class="conclusion-card">
+                        <div class="conclusion-icon conclusion-icon--value">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        <h3>Nhận Diện "Báu Vật Ẩn"</h3>
+                        <p>
+                            Thuật toán HUIM chứng minh ưu thế vượt trội khi tìm thấy nhóm <strong>Hidden Gems</strong> 
+                            — những sản phẩm có tần suất mua thấp nhưng lợi nhuận tập trung, vốn bị các thuật toán 
+                            truyền thống (Apriori, FP-Growth) bỏ qua hoàn toàn.
+                        </p>
+                    </div>
+
+
+                    <!-- Card 3: High Confidence -->
+                    <div class="conclusion-card">
+                        <div class="conclusion-icon conclusion-icon--trust">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3>Độ Tin Cậy Cao</h3>
+                        <p>
+                            Hầu hết các lượt kết hợp tìm được đều có độ tin cậy (Confidence) trên <strong>60%</strong>, 
+                            cho thấy hành vi mua sắm của khách hàng mang tính hệ thống và có thể dự báo chính xác 
+                            để triển khai các chiến dịch cross-selling.
+                        </p>
+                    </div>
+
+
+                    <!-- Card 4: FP-Growth Performance -->
+                    <div class="conclusion-card">
+                        <div class="conclusion-icon conclusion-icon--hidden">
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
+                        <h3>Hiệu Năng Vượt Trội</h3>
+                        <p>
+                            FP-Growth là giải pháp tối ưu cho mẫu dữ liệu "long-tail patterns" với ngưỡng support thấp. 
+                            Tại support <strong>0.6%</strong>, Apriori gặp Memory Error trong khi FP-Growth hoàn thành 
+                            trong <strong>210 giây</strong>, chỉ cần quét dữ liệu 2 lần duy nhất.
+                        </p>
+                    </div>
+                </div>
+
+
+                <!-- Key Insight Box -->
+                <div class="glass-panel reveal" style="margin-top: 60px;">
+                    <h4><i class="fa-solid fa-lightbulb"></i> Thông Điệp Chính</h4>
+                    <p>
+                        Nghiên cứu này không chỉ dừng lại việc tìm ra các tập mục phổ biến, mà còn đi sâu vào 
+                        <strong>giá trị kinh tế thực tế</strong>, giúp chuyển đổi dữ liệu thô thành 
+                        <strong class="text-gold">chiến lược lợi nhuận</strong> cụ thể thông qua thuật toán 
+                        High-Utility Itemset Mining (HUIM). Các phát hiện về:
+                    </p>
+                    <ul style="margin: 16px 0; padding-left: 24px;">
+                        <li style="color: var(--text-dim); line-height: 1.8; margin-bottom: 8px;">
+                            <strong>Ma trận BCG</strong> giúp phân loại sản phẩm (Stars, Hidden Gems, Cash Cows, Dogs)
+                        </li>
+                        <li style="color: var(--text-dim); line-height: 1.8; margin-bottom: 8px;">
+                            <strong>Đòn bẩy tài chính</strong> cao (~5.5x) ở combo DOTCOM POSTAGE + JAM MAKING SET
+                        </li>
+                        <li style="color: var(--text-dim); line-height: 1.8; margin-bottom: 8px;">
+                            <strong>Mạng lưới liên kết</strong> với chỉ số Lift cao (~15x) giữa Wooden Star ↔ Wooden Tree
+                        </li>
+                        <li style="color: var(--text-dim); line-height: 1.8; margin-bottom: 8px;">
+                            <strong>Chiến lược Smart Bundling</strong> cho khách hàng VIP để tối đa hóa doanh thu
+                        </li>
+                    </ul>
+                    <p style="margin-top: 20px; font-style: italic; color: var(--wheat);">
+                        "Đây là bước tiến quan trọng trong việc ứng dụng Data Mining vào giải quyết bài toán 
+                        kinh doanh thực tế, vượt xa khỏi phạm vi học thuật."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+
+
+    <!-- End Section -->
+    <!-- ========== CONCLUSION SECTION (LAB 2 VERSION) ========== -->
+<section class="end">
+    <div class="container">
+        <div class="end__box">
+            <h2 class="end__title font-art">Kết Luận</h2>
+            
+            <p class="end__desc">
+                Dự án đã chứng minh sự vượt trội của <strong class="text-gold">High-Utility Mining</strong> 
+                so với phương pháp truyền thống. Thông qua <strong>FP-Growth</strong>, chúng ta đã khám phá 
+                những <strong class="text-gold">"Hidden Gems"</strong> bị bỏ quên như 
+                <strong>JAM MAKING SET + POSTAGE</strong> với đòn bẩy tài chính <strong>~5.5x</strong>.
+            </p>
+            
+            <p class="end__desc">
+                Kết quả phân tích cung cấp cơ sở dữ liệu vững chắc cho các quyết định kinh doanh, đặc biệt trong 
+                <strong>ma trận BCG</strong> và <strong class="text-gold">tối ưu portfolio sản phẩm</strong>.
+            </p>
+
+            <div class="end__actions">
+                <button class="btn btn--primary" id="openLabPdf2">
+                    <i class="bi bi-file-earmark-pdf btn__ico"></i>
+                    <span>Đọc Full Report</span>
+                </button>
+                <a href="lab3.html" class="btn btn--ghost">
+                    <span>Lab 3: The Potato Eaters</span>
+                    <i class="bi bi-arrow-right btn__ico"></i>
+                </a>
+                <a href="https://github.com/VINH1811/shopping_cart_advanced_analysis" 
+                   target="_blank" 
+                   class="btn btn--ghost">
+                    <i class="bi bi-github btn__ico"></i>
+                    <span>View GitHub Repo</span>
+                </a>
+            </div>
+
+            <div class="end__bottom">
+                <p>© <span id="year">2025</span> WL-Datamining • Lab 3 • The Potato Eaters</p>
+                <button class="to-top" id="toTop" aria-label="Back to top">
+                    <i class="bi bi-arrow-up"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+    <!-- PDF Modal -->
+    <div class="modal" id="pdfModal">
+        <div class="modal__backdrop"></div>
+        <div class="modal__panel">
+            <div class="modal__bar">
+                <div class="modal__title">
+                    <div class="modal__dot"></div>
+                    <span class="modal__name" id="pdfTitle">PDF Viewer</span>
+                </div>
+                <div class="modal__actions">
+                    <a href="#" id="repoOpen" class="icon-btn" target="_blank" style="display: none;">
+                        <i class="bi bi-github"></i>
+                        <span>Repository</span>
+                    </a>
+                    <a href="#" id="pdfOpenNew" class="icon-btn" target="_blank">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                        <span>Mở Tab Mới</span>
+                    </a>
+                    <button class="icon-btn icon-btn--danger" id="pdfClose">
+                        <i class="bi bi-x-lg"></i>
+                        <span>Đóng</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal__body">
+                <iframe id="pdfFrame" src="about:blank"></iframe>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Image Expand Modal -->
+    <div class="modal2" id="expandModal">
+        <div class="modal2__backdrop"></div>
+        <div class="modal2__panel">
+            <div class="modal2__bar">
+                <div class="modal2__title">
+                    <div class="modal2__dot"></div>
+                    <span class="modal2__name" id="expandTitle">Image Viewer</span>
+                </div>
+                <div class="modal__actions">
+                    <button class="icon-btn icon-btn--danger" id="expandClose">
+                        <i class="bi bi-x-lg"></i>
+                        <span>Đóng</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal2__body">
+                <img id="expandImg" src="" alt="">
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="assets\js\lab2.js"></script>
+
+
+</body>
+</html>
