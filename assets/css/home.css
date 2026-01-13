@@ -4,6 +4,7 @@
    ✅ FIXED: Text visibility, Modal height, Cursor in modal
    ========================================================= */
 
+
 :root {
   /* ===== Colors: Van Gogh Palette ===== */
   --navy-0: #061525;
@@ -11,17 +12,21 @@
   --navy-2: #0b2238;
   --navy-3: #0f2d4a;
 
+
   --blue-500: #27A4F2;
   --blue-400: #3FAFF4;
   --blue-300: #6FC2F7;
   --blue-200: #9FD7F9;
   --blue-100: #CFE8FC;
 
+
   --gold-500: #F2C14E;
   --gold-400: #FFB703;
 
+
   --text: rgba(255, 255, 255, .92);
   --text-muted: rgba(255, 255, 255, .76);
+
 
   /* ===== Glass Effect ===== */
   --glass: rgba(255, 255, 255, .08);
@@ -30,16 +35,19 @@
   --glass-darker: rgba(7, 24, 39, .80);
   --line: rgba(255, 255, 255, .14);
 
+
   /* ===== Shadows ===== */
   --shadow-sm: 0 14px 36px rgba(0, 0, 0, .24);
   --shadow-md: 0 22px 60px rgba(0, 0, 0, .34);
   --shadow-lg: 0 28px 64px rgba(0, 0, 0, .32);
+
 
   /* ===== Radius ===== */
   --radius-sm: 14px;
   --radius-md: 18px;
   --radius-lg: 22px;
   --radius-xl: 999px;
+
 
   /* ===== Z-index ===== */
   --z-background: -5;
@@ -48,19 +56,23 @@
   --z-modal: 100000;
   --z-cursor: 99999;
 
+
   /* ===== Font ===== */
   --font: "Be Vietnam Pro", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
+
 
 /* ===== Reset & Base ===== */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
+
 html, body {
   height: 100%;
   margin: 0;
 }
+
 
 body {
   font-family: var(--font);
@@ -74,10 +86,12 @@ body {
     linear-gradient(180deg, var(--navy-2), var(--navy-1));
 }
 
+
 a {
   color: inherit;
   text-decoration: none;
 }
+
 
 button {
   font-family: var(--font);
@@ -86,15 +100,18 @@ button {
   cursor: none;
 }
 
+
 img {
   max-width: 100%;
   height: auto;
 }
 
+
 .container {
   width: min(1120px, calc(100% - 40px));
   margin: 0 auto;
 }
+
 
 /* =========================================================
    BACKGROUND STAGE
@@ -107,12 +124,14 @@ img {
   background: linear-gradient(180deg, var(--navy-2), var(--navy-1));
 }
 
+
 .bg-video-stage {
   --bg-blur: 0px;
   --bg-scale: 1.04;
   --bg-dim: 0.92;
   --bg-sat: 1.525;
 }
+
 
 .bg-video {
   position: absolute;
@@ -132,10 +151,12 @@ img {
   
 }
 
+
 .bg-video.is-on {
   opacity: 1;
   
 }
+
 
 .bg-vignette {
   position: absolute;
@@ -146,6 +167,7 @@ img {
     radial-gradient(900px 700px at 58% 78%, rgba(242, 193, 78, .16), transparent 62%),
     linear-gradient(180deg, rgba(7, 24, 39, .18), rgba(7, 24, 39, .58));
 }
+
 
 .bg-grain {
   position: absolute;
@@ -158,6 +180,7 @@ img {
   pointer-events: none;
 }
 
+
 /* =========================================================
    CONTENT SHIELD
    ========================================================= */
@@ -166,6 +189,7 @@ img {
   z-index: var(--z-content);
   padding-top: 14px;
 }
+
 
 .main::before {
   content: "";
@@ -178,6 +202,7 @@ img {
     radial-gradient(900px 700px at 60% 86%, rgba(242, 193, 78, .08), transparent 62%),
     linear-gradient(180deg, rgba(7, 24, 39, .82), rgba(7, 24, 39, .92));
 }
+
 
 /* =========================================================
    CURSOR
@@ -195,6 +220,7 @@ img {
   transition: opacity .3s ease;
 }
 
+
 .cursor-ring {
   position: fixed;
   width: 34px;
@@ -207,6 +233,7 @@ img {
   opacity: .96;
   transition: width .14s ease, height .14s ease, border-color .14s ease, opacity .3s ease;
 }
+
 
 .cursor-glow {
   position: fixed;
@@ -222,15 +249,18 @@ img {
   transition: opacity .3s ease;
 }
 
+
 body.is-touch {
   cursor: auto;
 }
+
 
 body.is-touch .cursor,
 body.is-touch .cursor-ring,
 body.is-touch .cursor-glow {
   display: none;
 }
+
 
 /* =========================================================
    PAGE TRANSITION
@@ -250,10 +280,12 @@ body.is-touch .cursor-glow {
   transition: opacity .55s ease, visibility .55s ease;
 }
 
+
 .page-transition.is-hidden {
   opacity: 0;
   visibility: hidden;
 }
+
 
 .pt__blob {
   width: 240px;
@@ -266,9 +298,11 @@ body.is-touch .cursor-glow {
   opacity: .62;
 }
 
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
 
 .pt__text {
   position: relative;
@@ -281,16 +315,19 @@ body.is-touch .cursor-glow {
   box-shadow: var(--shadow-sm);
 }
 
+
 .pt__brand {
   font-weight: 950;
   font-size: 18px;
 }
+
 
 .pt__hint {
   margin-top: 8px;
   color: var(--text-muted);
   font-size: 13px;
 }
+
 
 /* =========================================================
    NAVIGATION
@@ -305,6 +342,7 @@ body.is-touch .cursor-glow {
   box-shadow: 0 16px 44px rgba(0, 0, 0, .26);
   height: 74px;
 }
+
 
 .nav::after {
   content: "";
@@ -323,6 +361,7 @@ body.is-touch .cursor-glow {
   pointer-events: none;
 }
 
+
 .nav__inner {
   height: 74px;
   display: flex;
@@ -330,6 +369,7 @@ body.is-touch .cursor-glow {
   justify-content: space-between;
   gap: 14px;
 }
+
 
 .nav__brand {
   display: flex;
@@ -340,10 +380,12 @@ body.is-touch .cursor-glow {
   transition: transform .18s ease, background .18s ease;
 }
 
+
 .nav__brand:hover {
   transform: translateY(-1px);
   background: rgba(255, 255, 255, .06);
 }
+
 
 .nav__logo {
   width: 44px;
@@ -357,9 +399,11 @@ body.is-touch .cursor-glow {
   box-shadow: 0 14px 30px rgba(0, 0, 0, .18);
 }
 
+
 .nav__brand:hover .nav__logo {
   box-shadow: 0 18px 44px rgba(39, 164, 242, .14), 0 12px 34px rgba(0, 0, 0, .22);
 }
+
 
 .nav__logo img {
   width: 78%;
@@ -367,11 +411,13 @@ body.is-touch .cursor-glow {
   object-fit: contain;
 }
 
+
 .nav__title b {
   display: block;
   font-size: 14px;
   font-weight: 950;
 }
+
 
 .nav__title small {
   display: block;
@@ -380,11 +426,13 @@ body.is-touch .cursor-glow {
   margin-top: 2px;
 }
 
+
 .nav__links {
   display: flex;
   align-items: center;
   gap: 12px;
 }
+
 
 .nav__link {
   font-size: 13px;
@@ -396,6 +444,7 @@ body.is-touch .cursor-glow {
   transition: transform .18s ease, background .18s ease, border .18s ease, box-shadow .18s ease;
 }
 
+
 .nav__link:hover {
   transform: translateY(-1px);
   background: rgba(255, 255, 255, .08);
@@ -403,10 +452,12 @@ body.is-touch .cursor-glow {
   box-shadow: 0 14px 30px rgba(0, 0, 0, .18);
 }
 
+
 .nav__link:focus-visible {
   outline: 2px solid var(--gold-500);
   outline-offset: 4px;
 }
+
 
 .nav__link.is-active {
   font-weight: 950;
@@ -417,6 +468,7 @@ body.is-touch .cursor-glow {
     0 14px 34px rgba(0, 0, 0, .18),
     0 0 0 6px rgba(39, 164, 242, .10);
 }
+
 
 .nav__toggle {
   display: none;
@@ -430,15 +482,18 @@ body.is-touch .cursor-glow {
   transition: background .18s ease;
 }
 
+
 .nav__toggle:hover {
   background: rgba(255, 255, 255, .10);
 }
+
 
 .nav__mobile {
   border-top: 1px solid rgba(255, 255, 255, .10);
   background: rgba(7, 24, 39, .78);
   backdrop-filter: blur(20px);
 }
+
 
 .nav__m-link {
   display: block;
@@ -448,14 +503,17 @@ body.is-touch .cursor-glow {
   transition: background .18s ease;
 }
 
+
 .nav__m-link:hover {
   background: rgba(255, 255, 255, .07);
 }
+
 
 .nav__m-link.is-active {
   background: rgba(39, 164, 242, .12);
   font-weight: 700;
 }
+
 
 /* =========================================================
    HERO SECTION
@@ -474,6 +532,7 @@ body.is-touch .cursor-glow {
   padding-bottom: 64px; /* ✅ Giảm từ 96px → 64px */
 }
 
+
 .hero::before {
   content: "";
   position: absolute;
@@ -485,16 +544,19 @@ body.is-touch .cursor-glow {
   z-index: 1;
 }
 
+
 .hero__content {
   position: relative;
   z-index: 2;
   text-align: center;
 }
 
+
 .hero__center {
   width: min(980px, 100%);
   margin: 0 auto;
 }
+
 
 /* ===== Hero Particles ===== */
 .hero__particles {
@@ -505,10 +567,12 @@ body.is-touch .cursor-glow {
   z-index: 1;
 }
 
+
 .hero__particles canvas {
   width: 100%;
   height: 100%;
 }
+
 
 /* ===== Hero Badge ===== */
 .hero__badge {
@@ -526,6 +590,7 @@ body.is-touch .cursor-glow {
   font-size: 12px; /* ✅ Giảm từ 13px → 12px */
 }
 
+
 .hero__badge-dot {
   width: 11px; /* ✅ Giảm từ 12px → 11px */
   height: 11px;
@@ -535,10 +600,12 @@ body.is-touch .cursor-glow {
   animation: badgePulse 2s ease-in-out infinite;
 }
 
+
 @keyframes badgePulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.1); }
 }
+
 
 /* ===== Hero Title - ✅ COMPACT SIZE ===== */
 .hero__title {
@@ -548,16 +615,19 @@ body.is-touch .cursor-glow {
   font-size: clamp(38px, 5vw, 64px); /* ✅ Giảm từ 46-78px → 38-64px */
 }
 
+
 .hero__title span {
   display: block;
   font-weight: 900;
 }
+
 
 .hero__title .t1,
 .hero__title .t3 {
   color: rgba(255, 255, 255, .94);
   text-shadow: 0 18px 40px rgba(0, 0, 0, .22);
 }
+
 
 .hero__title .t2 {
   background: linear-gradient(180deg, var(--blue-500), var(--blue-300));
@@ -567,6 +637,7 @@ body.is-touch .cursor-glow {
   position: relative;
   display: inline-block;
 }
+
 
 /* ===== Shimmer Effect ===== */
 .hero__title .t2::after {
@@ -585,6 +656,7 @@ body.is-touch .cursor-glow {
   animation: shimmer 3s ease-in-out infinite;
 }
 
+
 @keyframes shimmer {
   0%, 100% {
     opacity: 0;
@@ -596,6 +668,7 @@ body.is-touch .cursor-glow {
   }
 }
 
+
 /* ===== Hero Description ===== */
 .hero__desc {
   margin: 0 auto 20px; /* ✅ Giảm margin bottom từ 26px → 20px */
@@ -606,6 +679,7 @@ body.is-touch .cursor-glow {
   line-height: 1.65; /* ✅ Giảm line-height từ 1.75 → 1.65 */
 }
 
+
 .hero__desc--enhanced .highlight {
   background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
   -webkit-background-clip: text;
@@ -614,6 +688,7 @@ body.is-touch .cursor-glow {
   font-weight: 800;
   position: relative;
 }
+
 
 .hero__desc--enhanced .highlight::after {
   content: "";
@@ -627,6 +702,7 @@ body.is-touch .cursor-glow {
   opacity: 0.6;
 }
 
+
 /* ===== Hero Actions (Buttons) ===== */
 .hero__actions {
   display: flex;
@@ -635,6 +711,7 @@ body.is-touch .cursor-glow {
   gap: 12px; /* ✅ Giảm từ 14px → 12px */
   margin: 14px 0 32px; /* ✅ Giảm margin từ 18px 0 38px → 14px 0 32px */
 }
+
 
 /* ===== Premium Buttons ===== */
 .btn {
@@ -655,14 +732,17 @@ body.is-touch .cursor-glow {
   font-size: 14px;
 }
 
+
 .btn:hover {
   transform: translateY(-2px);
 }
+
 
 .btn:focus-visible {
   outline: 2px solid var(--gold-500);
   outline-offset: 4px;
 }
+
 
 .btn--premium {
   padding: 14px 24px; /* ✅ Giảm padding từ 16px 28px → 14px 24px */
@@ -670,21 +750,25 @@ body.is-touch .cursor-glow {
   font-size: 14px; /* ✅ Giảm từ 15px → 14px */
 }
 
+
 .btn--primary {
   background: linear-gradient(90deg, rgba(39, 164, 242, .22), rgba(242, 193, 78, .18));
   border-color: rgba(242, 193, 78, .42);
   box-shadow: 0 18px 56px rgba(39, 164, 242, .14), 0 16px 48px rgba(242, 193, 78, .12);
 }
 
+
 .btn--primary:hover {
   box-shadow: 0 22px 68px rgba(39, 164, 242, .18), 0 22px 62px rgba(242, 193, 78, .16);
 }
+
 
 .btn--ghost:hover {
   border-color: rgba(242, 193, 78, .28);
   background: rgba(255, 255, 255, .12);
   color: var(--text);
 }
+
 
 /* ===== Button Glow ===== */
 .btn__glow {
@@ -702,10 +786,12 @@ body.is-touch .cursor-glow {
   z-index: -1;
 }
 
+
 .btn--premium:hover .btn__glow {
   opacity: 1;
   animation: glowPulse 2s ease-in-out infinite;
 }
+
 
 @keyframes glowPulse {
   0%, 100% {
@@ -718,6 +804,7 @@ body.is-touch .cursor-glow {
   }
 }
 
+
 /* ===== Button Icon ===== */
 .btn__icon {
   display: flex;
@@ -727,9 +814,11 @@ body.is-touch .cursor-glow {
   transition: transform .3s ease;
 }
 
+
 .btn--premium:hover .btn__icon {
   transform: scale(1.1) rotate(5deg);
 }
+
 
 /* ===== Button Shine ===== */
 .btn__shine {
@@ -748,10 +837,12 @@ body.is-touch .cursor-glow {
   animation: shine 3s ease-in-out infinite;
 }
 
+
 @keyframes shine {
   0%, 100% { left: -100%; }
   50% { left: 150%; }
 }
+
 
 /* =========================================================
    HERO STATS (3D Floating) - ✅ COMPACT
@@ -764,6 +855,7 @@ body.is-touch .cursor-glow {
   margin-top: 38px; /* ✅ Giảm từ 48px → 38px */
 }
 
+
 .stat {
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, .10);
@@ -774,6 +866,7 @@ body.is-touch .cursor-glow {
   text-align: center;
 }
 
+
 .stat--float {
   position: relative;
   transform-style: preserve-3d;
@@ -783,6 +876,7 @@ body.is-touch .cursor-glow {
   opacity: 0;
   animation: statFadeIn .8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
+
 
 @keyframes statFadeIn {
   from {
@@ -795,9 +889,11 @@ body.is-touch .cursor-glow {
   }
 }
 
+
 .stat--float[data-delay="100"] { animation-delay: .1s; }
 .stat--float[data-delay="200"] { animation-delay: .2s; }
 .stat--float[data-delay="300"] { animation-delay: .3s; }
+
 
 .stat--float:hover {
   transform: translateY(-12px) scale(1.05);
@@ -805,6 +901,7 @@ body.is-touch .cursor-glow {
     0 28px 64px rgba(0, 0, 0, .32),
     0 0 40px rgba(39, 164, 242, .2);
 }
+
 
 .stat__bg {
   position: absolute;
@@ -818,9 +915,11 @@ body.is-touch .cursor-glow {
   z-index: -1;
 }
 
+
 .stat--float:hover .stat__bg {
   opacity: 1;
 }
+
 
 .stat__icon {
   width: 46px; /* ✅ Giảm từ 52px → 46px */
@@ -837,10 +936,12 @@ body.is-touch .cursor-glow {
   color: var(--gold-500);
 }
 
+
 .stat--float:hover .stat__icon {
   transform: scale(1.15) rotate(5deg);
   box-shadow: 0 18px 44px rgba(242, 193, 78, .3);
 }
+
 
 .stat__num {
   font-size: 34px; /* ✅ Giảm từ 38px → 34px */
@@ -854,9 +955,11 @@ body.is-touch .cursor-glow {
   transition: transform .4s ease;
 }
 
+
 .stat--float:hover .stat__num {
   transform: scale(1.08);
 }
+
 
 .stat__label {
   font-size: 13px; /* ✅ Giảm từ 14px → 13px */
@@ -866,6 +969,7 @@ body.is-touch .cursor-glow {
   letter-spacing: .5px;
 }
 
+
 /* ===== Hero Chips ===== */
 .hero__hint {
   margin-top: 18px; /* ✅ Giảm từ 22px → 18px */
@@ -874,6 +978,7 @@ body.is-touch .cursor-glow {
   gap: 9px; /* ✅ Giảm từ 10px → 9px */
   flex-wrap: wrap;
 }
+
 
 .chip {
   display: inline-flex;
@@ -889,24 +994,29 @@ body.is-touch .cursor-glow {
   transition: all .3s ease;
 }
 
+
 .chip:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, .18);
 }
 
+
 .chip i {
   font-size: 13px; /* ✅ Giảm từ 14px → 13px */
 }
+
 
 .chip--hot {
   background: linear-gradient(135deg, rgba(242, 193, 78, .18), rgba(255, 183, 3, .12));
   border-color: rgba(242, 193, 78, .32);
 }
 
+
 .chip--cold {
   background: linear-gradient(135deg, rgba(39, 164, 242, .16), rgba(111, 194, 247, .10));
   border-color: rgba(39, 164, 242, .28);
 }
+
 
 .hero__fade {
   position: absolute;
@@ -919,6 +1029,7 @@ body.is-touch .cursor-glow {
 }
 
 
+
 /* =========================================================
    SECTIONS
    ========================================================= */
@@ -926,14 +1037,17 @@ body.is-touch .cursor-glow {
   padding: 44px 0 18px;
 }
 
+
 .section:first-of-type {
   padding-top: 58px;
 }
+
 
 .section__head {
   margin-bottom: 14px;
   text-align: left;
 }
+
 
 .section__title {
   margin: 0;
@@ -941,6 +1055,7 @@ body.is-touch .cursor-glow {
   letter-spacing: -.2px;
   font-weight: 900;
 }
+
 
 .section__desc {
   margin: 8px 0 0;
@@ -950,12 +1065,14 @@ body.is-touch .cursor-glow {
   font-size: 14px;
 }
 
+
 .grad {
   background: linear-gradient(90deg, var(--blue-500), var(--gold-500));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
+
 
 /* =========================================================
    BLOG CARDS
@@ -965,6 +1082,7 @@ body.is-touch .cursor-glow {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 }
+
 
 .blog-card {
   border-radius: var(--radius-md);
@@ -979,6 +1097,7 @@ body.is-touch .cursor-glow {
   transition: transform .18s ease, background .18s ease, border .18s ease;
 }
 
+
 .blog-card::before {
   content: "";
   position: absolute;
@@ -991,15 +1110,18 @@ body.is-touch .cursor-glow {
   z-index: 0;
 }
 
+
 .blog-card:hover::before {
   opacity: 1;
 }
+
 
 .blog-card:hover {
   transform: translateY(-3px);
   background: rgba(14, 40, 64, .82);
   border-color: rgba(39, 164, 242, .22);
 }
+
 
 .blog-card__top {
   display: flex;
@@ -1010,6 +1132,7 @@ body.is-touch .cursor-glow {
   z-index: 1;
 }
 
+
 .blog-card__tag {
   font-size: 12px;
   padding: 7px 10px;
@@ -1019,6 +1142,7 @@ body.is-touch .cursor-glow {
   color: rgba(255, 255, 255, .90);
   font-weight: 700;
 }
+
 
 .blog-card__ico {
   width: 44px;
@@ -1031,6 +1155,7 @@ body.is-touch .cursor-glow {
   font-size: 20px;
 }
 
+
 .blog-card__title {
   margin: 12px 0 6px;
   font-size: 16px;
@@ -1038,6 +1163,7 @@ body.is-touch .cursor-glow {
   font-weight: 900;
   z-index: 1;
 }
+
 
 .blog-card__desc {
   margin: 0;
@@ -1048,6 +1174,7 @@ body.is-touch .cursor-glow {
   z-index: 1;
 }
 
+
 .blog-card__meta {
   display: flex;
   flex-wrap: wrap;
@@ -1056,6 +1183,7 @@ body.is-touch .cursor-glow {
   position: relative;
   z-index: 1;
 }
+
 
 .pill {
   font-size: 12px;
@@ -1067,6 +1195,7 @@ body.is-touch .cursor-glow {
   font-weight: 600;
 }
 
+
 /* =========================================================
    SLIDES LIST
    ========================================================= */
@@ -1075,6 +1204,7 @@ body.is-touch .cursor-glow {
   flex-direction: column;
   gap: 14px;
 }
+
 
 .slide-row {
   display: flex;
@@ -1091,11 +1221,13 @@ body.is-touch .cursor-glow {
   transition: transform .18s ease, background .18s ease, border .18s ease;
 }
 
+
 .slide-row:hover {
   transform: translateY(-2px);
   background: rgba(14, 40, 64, .86);
   border-color: rgba(242, 193, 78, .22);
 }
+
 
 .slide-row__left {
   display: flex;
@@ -1103,6 +1235,7 @@ body.is-touch .cursor-glow {
   gap: 14px;
   min-width: 0;
 }
+
 
 .slide-row__icon {
   width: 54px;
@@ -1116,6 +1249,7 @@ body.is-touch .cursor-glow {
   font-size: 24px;
 }
 
+
 .slide-row__title {
   font-size: 16px;
   font-weight: 900;
@@ -1123,6 +1257,7 @@ body.is-touch .cursor-glow {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 
 .slide-row__sub {
   margin-top: 6px;
@@ -1133,11 +1268,13 @@ body.is-touch .cursor-glow {
   text-overflow: ellipsis;
 }
 
+
 .slide-row__cta {
   font-weight: 900;
   opacity: .86;
   flex: 0 0 auto;
 }
+
 
 /* =========================================================
    FOOTER
@@ -1150,10 +1287,12 @@ body.is-touch .cursor-glow {
   backdrop-filter: blur(18px);
 }
 
+
 .footer__head {
   text-align: center;
   margin-bottom: 18px;
 }
+
 
 .footer__title {
   margin: 0;
@@ -1162,6 +1301,7 @@ body.is-touch .cursor-glow {
   letter-spacing: -0.4px;
 }
 
+
 .footer__sub {
   margin: 10px 0 0;
   color: var(--text-muted);
@@ -1169,12 +1309,14 @@ body.is-touch .cursor-glow {
   line-height: 1.6;
 }
 
+
 .members--big {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
   margin-top: 20px;
 }
+
 
 .member--big {
   display: flex;
@@ -1191,6 +1333,7 @@ body.is-touch .cursor-glow {
   transition: transform .18s ease, background .18s ease, border .18s ease;
 }
 
+
 .member--big::before {
   content: "";
   position: absolute;
@@ -1203,11 +1346,13 @@ body.is-touch .cursor-glow {
   z-index: 0;
 }
 
+
 .member--big:hover {
   transform: translateY(-2px);
   background: rgba(14, 40, 64, .80);
   border-color: rgba(39, 164, 242, .22);
 }
+
 
 .member--big .member__img {
   width: 64px;
@@ -1220,10 +1365,12 @@ body.is-touch .cursor-glow {
   z-index: 1;
 }
 
+
 .member--big .member__meta {
   position: relative;
   z-index: 1;
 }
+
 
 .member--big .member__name {
   font-size: 16px;
@@ -1231,17 +1378,234 @@ body.is-touch .cursor-glow {
   letter-spacing: -0.2px;
 }
 
+
 .member--big .member__role {
   margin-top: 6px;
   color: rgba(255, 255, 255, .78);
   font-size: 13px;
 }
 
+
 .member--big .member__sub {
   margin-top: 4px;
   color: rgba(255, 255, 255, .66);
   font-size: 12px;
 }
+
+
+/* =========================================================
+   TEACHER SECTION - ✅ NEW
+   ========================================================= */
+.teacher-section {
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(255, 255, 255, .10);
+}
+
+.teacher-card {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 36px;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, .14);
+  background: var(--glass-dark);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 22px 56px rgba(0, 0, 0, .24);
+  position: relative;
+  overflow: hidden;
+}
+
+.teacher-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background:
+    radial-gradient(600px 400px at 20% 30%, rgba(242, 193, 78, .18), transparent 60%),
+    radial-gradient(600px 400px at 80% 70%, rgba(39, 164, 242, .14), transparent 62%);
+  opacity: .6;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.teacher-card__left,
+.teacher-card__right {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Teacher Image ===== */
+.teacher-img-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid rgba(242, 193, 78, .30);
+  box-shadow: 
+    0 24px 64px rgba(0, 0, 0, .32),
+    0 0 0 8px rgba(242, 193, 78, .08);
+  background: rgba(255, 255, 255, .06);
+}
+
+.teacher-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.teacher-badge {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, rgba(242, 193, 78, .95), rgba(255, 183, 3, .90));
+  border: 1px solid rgba(255, 255, 255, .30);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .36);
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--navy-1);
+  backdrop-filter: blur(8px);
+}
+
+.teacher-badge i {
+  font-size: 16px;
+  color: var(--navy-1);
+}
+
+/* ===== Teacher Info ===== */
+.teacher-header {
+  margin-bottom: 24px;
+}
+
+.teacher-name {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--blue-300), var(--gold-500));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.teacher-title {
+  font-size: 15px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* ===== Info Rows ===== */
+.teacher-info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.info-row i {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(39, 164, 242, .16), rgba(242, 193, 78, .16));
+  border: 1px solid rgba(255, 255, 255, .12);
+  font-size: 15px;
+  color: var(--gold-500);
+  flex-shrink: 0;
+}
+
+.info-row div {
+  flex: 1;
+  min-width: 0;
+}
+
+.info-row strong {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: rgba(255, 255, 255, .92);
+}
+
+.info-row span {
+  color: var(--text-muted);
+}
+
+/* ===== Teacher Description ===== */
+.teacher-desc {
+  margin-bottom: 28px;
+}
+
+.teacher-desc p {
+  margin: 0 0 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, .84);
+  font-size: 14px;
+}
+
+.teacher-desc p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== Teacher Stats ===== */
+.teacher-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.teacher-stat {
+  padding: 16px 12px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .10);
+  text-align: center;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.teacher-stat:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, .08);
+  border-color: rgba(242, 193, 78, .25);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .20);
+}
+
+.teacher-stat__num {
+  font-size: 24px;
+  font-weight: 900;
+  background: linear-gradient(180deg, var(--gold-500), var(--gold-400));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 6px;
+}
+
+.teacher-stat__label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
 
 .footer--simple .footer__bottom {
   margin-top: 22px;
@@ -1254,6 +1618,7 @@ body.is-touch .cursor-glow {
   color: rgba(255, 255, 255, .72);
   font-size: 12px;
 }
+
 
 .to-top {
   width: 40px;
@@ -1268,10 +1633,12 @@ body.is-touch .cursor-glow {
   font-size: 18px;
 }
 
+
 .to-top:hover {
   transform: translateY(-2px);
   background: rgba(255, 255, 255, .10);
 }
+
 
 /* =========================================================
    MODAL - ✅ FIXED HEIGHT & CURSOR
@@ -1283,9 +1650,11 @@ body.is-touch .cursor-glow {
   z-index: var(--z-modal);
 }
 
+
 .modal.is-open {
   display: block;
 }
+
 
 .modal__backdrop {
   position: absolute;
@@ -1295,6 +1664,7 @@ body.is-touch .cursor-glow {
   z-index: 0;
   cursor: auto;
 }
+
 
 .modal__panel {
   position: absolute;
@@ -1313,13 +1683,16 @@ body.is-touch .cursor-glow {
   z-index: 1;
 }
 
+
 @keyframes modalIn {
   to { transform: translateY(0); }
 }
 
+
 .modal.is-closing .modal__panel {
   animation: modalOut .25s ease forwards;
 }
+
 
 @keyframes modalOut {
   to {
@@ -1327,6 +1700,7 @@ body.is-touch .cursor-glow {
     opacity: 0;
   }
 }
+
 
 .modal__bar {
   height: 56px;
@@ -1342,6 +1716,7 @@ body.is-touch .cursor-glow {
   pointer-events: auto;
 }
 
+
 .modal__title {
   display: flex;
   align-items: center;
@@ -1349,6 +1724,7 @@ body.is-touch .cursor-glow {
   font-weight: 900;
   min-width: 0;
 }
+
 
 .modal__dot {
   width: 10px;
@@ -1359,6 +1735,7 @@ body.is-touch .cursor-glow {
   flex: 0 0 auto;
 }
 
+
 .modal__name {
   display: block;
   min-width: 0;
@@ -1367,6 +1744,7 @@ body.is-touch .cursor-glow {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 
 .modal__actions {
   display: flex;
@@ -1377,9 +1755,11 @@ body.is-touch .cursor-glow {
   pointer-events: auto;
 }
 
+
 .modal__actions * {
   pointer-events: auto;
 }
+
 
 .icon-btn {
   border: 1px solid rgba(255, 255, 255, .16);
@@ -1396,24 +1776,29 @@ body.is-touch .cursor-glow {
   font-weight: 700;
 }
 
+
 .icon-btn:hover {
   transform: translateY(-1px);
   background: rgba(255, 255, 255, .12);
 }
+
 
 .icon-btn:focus-visible {
   outline: 2px solid var(--gold-500);
   outline-offset: 2px;
 }
 
+
 .icon-btn--danger {
   background: rgba(239, 68, 68, .12);
   border-color: rgba(239, 68, 68, .25);
 }
 
+
 .icon-btn--danger:hover {
   background: rgba(239, 68, 68, .18);
 }
+
 
 .modal__body {
   height: calc(100% - 56px);
@@ -1423,6 +1808,7 @@ body.is-touch .cursor-glow {
   overflow: auto;
 }
 
+
 .modal__body iframe {
   width: 100%;
   min-height: 600px;
@@ -1430,6 +1816,7 @@ body.is-touch .cursor-glow {
   border: 0;
   background: #071b35;
 }
+
 
 .pdf-loading {
   position: absolute;
@@ -1443,9 +1830,11 @@ body.is-touch .cursor-glow {
   z-index: 10;
 }
 
+
 .pdf-loading.hidden {
   display: none;
 }
+
 
 .spinner {
   width: 48px;
@@ -1456,6 +1845,7 @@ body.is-touch .cursor-glow {
   animation: spin 0.8s linear infinite;
 }
 
+
 /* =========================================================
    REVEAL ANIMATION
    ========================================================= */
@@ -1465,10 +1855,12 @@ body.is-touch .cursor-glow {
   transition: opacity .75s ease, transform .75s ease;
 }
 
+
 .reveal.is-in {
   opacity: 1;
   transform: translateY(0);
 }
+
 
 /* =========================================================
    RIPPLE EFFECT
@@ -1491,6 +1883,7 @@ body.is-touch .cursor-glow {
   z-index: calc(var(--z-cursor) - 3);
 }
 
+
 @keyframes ripple {
   from {
     width: 0;
@@ -1504,9 +1897,11 @@ body.is-touch .cursor-glow {
   }
 }
 
+
 /* =========================================================
    🐛 BUG FIXES - CRITICAL
    ========================================================= */
+
 
 /* ===== FIX 3: Cursor visibility in modal ===== */
 .modal.is-open,
@@ -1519,12 +1914,14 @@ body.is-touch .cursor-glow {
   cursor: auto !important;
 }
 
+
 .modal.is-open ~ .cursor,
 .modal.is-open ~ .cursor-ring,
 .modal.is-open ~ .cursor-glow {
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
 
 /* =========================================================
    RESPONSIVE
@@ -1534,6 +1931,7 @@ body.is-touch .cursor-glow {
     gap: 16px;
   }
 }
+
 
 @media (max-width: 900px) {
   .nav__links {
@@ -1561,7 +1959,24 @@ body.is-touch .cursor-glow {
   .members--big {
     grid-template-columns: 1fr;
   }
+
+  /* ===== Teacher Responsive ===== */
+  .teacher-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 20px;
+  }
+  
+  .teacher-img-wrapper {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  
+  .teacher-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
+
 
 @media (max-width: 768px) {
   .hero__title {
@@ -1586,11 +2001,13 @@ body.is-touch .cursor-glow {
     font-size: 32px;
   }
 
+
   .modal__panel {
     height: calc(100% - 20px) !important;
     max-height: none;
   }
 }
+
 
 @media (max-width: 560px) {
   .hero__stats--floating {
@@ -1635,7 +2052,34 @@ body.is-touch .cursor-glow {
   .icon-btn span {
     display: none;
   }
+
+  /* ===== Teacher Mobile ===== */
+  .teacher-section {
+    margin-top: 32px;
+    padding-top: 32px;
+  }
+  
+  .teacher-card {
+    padding: 16px;
+  }
+  
+  .teacher-name {
+    font-size: 24px;
+  }
+  
+  .teacher-info {
+    padding: 16px;
+  }
+  
+  .info-row {
+    font-size: 13px;
+  }
+  
+  .teacher-stats {
+    grid-template-columns: 1fr;
+  }
 }
+
 
 /* ===== Print styles ===== */
 @media print {
